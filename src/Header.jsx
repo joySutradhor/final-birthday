@@ -53,7 +53,7 @@ function Header() {
 
             {/* Sliding Menu */}
             <div
-                className={`absolute top-0 left-0 bg-gradient-to-tr from-[#1F2A3E] via-[#3A424D] to-[#EFE1BE] transition-transform duration-300 h-[100dvh] p-4 md:p-8 w-[50vw] sm:w-[50vw] md:w-[30vw] lg:w-[25vw] xl:w-[20vw] ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
+                className={`absolute top-0 left-0 bg-gradient-to-tr from-[#1F2A3E] via-[#3A424D] to-[#EFE1BE] transition-transform duration-300 h-[100dvh] overflow-scroll p-4 md:p-8 w-[50vw] sm:w-[50vw] md:w-[30vw] lg:w-[25vw] xl:w-[20vw] ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
             >
                 <div className='flex justify-end'>
                     {/* Close Icon */}
