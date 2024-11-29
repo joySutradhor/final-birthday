@@ -82,7 +82,7 @@ function Header() {
 
                     {
                         story?.map((data, index) => (
-                            <Link key={index} to={`/story/${data._id}`} className='truncate max-w-xs text-white/80 hover:text-white font-medium font-custom flex gap-2 items-center'><span><FaLongArrowAltRight /></span> {data.title}</Link>
+                            <Link key={index} onClick={handleLinkClick} to={`/story/${data._id}`} className='truncate max-w-xs text-white/80 hover:text-white font-medium font-custom flex gap-2 items-center'><span><FaLongArrowAltRight /></span> {data.title}</Link>
                         ))
                     }
 
