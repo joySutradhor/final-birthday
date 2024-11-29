@@ -39,7 +39,7 @@ export default function Gallery() {
     return (
         <section className="sectionSpace" id="gallery">
             <h2 className="heading">Our Happy Moments</h2>
-            <p className="para pt-5 lg:w-1/3 pb-10">
+            <p className="para pt-5 xl:w-1/3 pb-10">
                 Love is at the heart of everything we do. It drives us to build meaningful relationships, support our clients, and create moments that matter.
             </p>
 

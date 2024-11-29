@@ -154,7 +154,7 @@ export default function AllBanner() {
 
     return (
         <section className="py-10 md:py-20">
-            <h2 className="flex gap-1 items-center subHeading">
+            <h2 className="flex gap-1 items-center d__subHeading">
                 <span>
                     <CollectionsIcon />
                 </span>{" "}
@@ -190,8 +190,8 @@ export default function AllBanner() {
                                 </div>
                             </div>
                             <div className="p-5">
-                                <h2 className="d__heading">{img?.title}</h2>
-                                <p className="text-lg font-medium text-black/70">{img?.des}</p>
+                                <h2 className="d__title pb-2 xl:pb-5 ">{img?.title}</h2>
+                                <p className="d__des">{img?.des}</p>
                             </div>
                         </div>
                     ))}
@@ -199,14 +199,14 @@ export default function AllBanner() {
             </div>
 
             {showModal && (
-                <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center">
+                <div className="fixed inset-0 bg-white/15 bg-opacity-50 flex justify-center items-center">
                     <div className="bg-white p-6 rounded-md w-1/3">
-                        <h3 className="text-lg font-semibold mb-4">Edit Banner</h3>
+                        {/* <h3 className="d__subHeading mb-4">Edit Banner</h3> */}
                         <form onSubmit={handleFormSubmit}>
                             <div className="mb-4">
                                 <label
                                     htmlFor="image"
-                                    className="block text-lg font-medium text-black/70 mb-2"
+                                    className="block d__title mb-2"
                                 >
                                     Select New Image
                                 </label>
@@ -229,7 +229,7 @@ export default function AllBanner() {
                             <div className="mb-4">
                                 <label
                                     htmlFor="title"
-                                    className="block text-lg font-medium text-black/70 mb-2"
+                                    className="block d__title mb-2"
                                 >
                                     Title
                                 </label>
@@ -244,7 +244,7 @@ export default function AllBanner() {
                             <div className="mb-4">
                                 <label
                                     htmlFor="description"
-                                    className="block text-lg font-medium text-black/70 mb-2"
+                                    className="block d__title mb-2"
                                 >
                                     Description
                                 </label>

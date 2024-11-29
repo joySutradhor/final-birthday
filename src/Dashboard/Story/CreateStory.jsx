@@ -84,10 +84,10 @@ function CreateStory() {
     return (
         <>
             <section className='mt-10 border p-5 md:p-10'>
-                <h2 className='text-lg font-medium text-black/70 mb-8 flex items-center gap-1'> <span> <BorderColorIcon /></span> Write Your Feelings Here</h2>
+                <h2 className='d__des mb-8 flex items-center gap-1'> <span> <BorderColorIcon /></span> Write Your Feelings Here</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="mb-6">
-                        <label className='block text-lg font-medium text-black/70 mb-2' htmlFor="title">Story Title</label>
+                        <label className='block d__des mb-2' htmlFor="title">Story Title</label>
                         <input
                             type="text"
                             id="title"
@@ -98,7 +98,7 @@ function CreateStory() {
                     </div>
 
                     <div className="mb-6">
-                        <label className='block text-lg font-medium text-black/70 mb-2' htmlFor="des">Story description </label>
+                        <label className='block d__des mb-2' htmlFor="des">Story description </label>
                         <textarea
                             id="des"
                             {...register('des', { required: 'Story des is required' })}

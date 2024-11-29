@@ -93,10 +93,10 @@ function VideoAlbum() {
     return (
         <>
             <section className="mt-10 border p-5 md:p-10">
-                <h2 className="d__heading mb-8">Upload Your YouTube Embeded Link</h2>
+                <h2 className="d__subHeading mb-8">Upload Your YouTube  Link</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="mb-6">
-                        <label htmlFor="url" className="block text-lg font-medium text-black/70 mb-2">
+                        <label htmlFor="url" className="block d__des mb-2">
                             YouTube Embed Link
                         </label>
                         <input
@@ -124,7 +124,7 @@ function VideoAlbum() {
 
             {/* Display all videos */}
             <div className="py-10 lg:py-20">
-                <h3 className="text-lg font-bold mb-4">Uploaded Videos</h3>
+                <h3 className="d__subHeading mb-4">Uploaded Videos</h3>
                 {videos?.length === 0 ? (
                     <p>No videos found.</p>
                 ) : (

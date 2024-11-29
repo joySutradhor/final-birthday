@@ -153,7 +153,7 @@ export default function AllPhoto() {
 
     return (
         <section className="py-10 md:py-20">
-            <h2 className="flex gap-1 items-center  text-black/70 font-semibold text-xl ">
+            <h2 className="flex gap-1 items-center  d__subHeading ">
                 <span>
                     <CollectionsIcon />
                 </span>{" "}
@@ -189,7 +189,7 @@ export default function AllPhoto() {
                                 </div>
                             </div>
                             <div className="p-5">
-                                <h2 className="d__heading">{img?.title}</h2>
+                                <h2 className="d__title">{img?.title}</h2>
                             </div>
                         </div>
                     ))}
@@ -199,12 +199,12 @@ export default function AllPhoto() {
             {showModal && (
                 <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center">
                     <div className="bg-white p-6 rounded-md w-1/3">
-                        <h3 className="text-lg font-semibold mb-4">Edit Photo Gallery</h3>
+                        <h3 className="d__subHeading mb-4">Edit Photo Gallery</h3>
                         <form onSubmit={handleFormSubmit}>
                             <div className="mb-4">
                                 <label
                                     htmlFor="image"
-                                    className="block text-lg font-medium text-black/70 mb-2"
+                                    className="block d__des mb-2"
                                 >
                                     Select New Image
                                 </label>
@@ -227,7 +227,7 @@ export default function AllPhoto() {
                             <div className="mb-4">
                                 <label
                                     htmlFor="title"
-                                    className="block text-lg font-medium text-black/70 mb-2"
+                                    className="block d__des mb-2"
                                 >
                                     Title
                                 </label>
@@ -243,7 +243,7 @@ export default function AllPhoto() {
                             <div className="mb-4">
                                 <label
                                     htmlFor="url"
-                                    className="block text-lg font-medium text-black/70 mb-2"
+                                    className="block d__des mb-2"
                                 >
                                     Url
                                 </label>

@@ -70,8 +70,8 @@ export default function Hero() {
                             loading="lazy"
                         />
                         <div className="slide-content">
-                            <h1 className='text-2xl xl:text-5xl font-bold text-white/90 mb-8  '> <span> <FaQuoteLeft /></span> <span>{slide.title}</span>  </h1>
-                            <p className='text-lg leading-6 font-normal text-white'>{slide.des}</p>
+                            <h1 className='hero__heading mb-8  '> <span> <FaQuoteLeft /></span> <span>{slide.title}</span>  </h1>
+                            <p className='hero__para'>{slide.des}</p>
                         </div>
                     </SwiperSlide>
 

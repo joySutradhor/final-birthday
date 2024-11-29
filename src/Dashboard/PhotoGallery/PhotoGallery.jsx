@@ -68,7 +68,7 @@ function PhotoGallery() {
 
   return (
     <section className="mt-10">
-      <p className="text-lg font-medium text-black/70 mb-3">Create Your Amazing Photo Gallery</p>
+      <p className="d__des mb-3">Create Your Amazing Photo Gallery</p>
       <div className="border grid lg:grid-cols-2 items-center lg:justify-center p-5 md:p-10 gap-10">
         {/* Image Upload Box */}
         <div
@@ -102,7 +102,7 @@ function PhotoGallery() {
           <div className="space-y-5">
             {/* Title Field */}
             <div>
-              <label htmlFor="title" className="block text-lg font-medium text-black/70 mb-2">
+              <label htmlFor="title" className="block d__des mb-2">
                 Title
               </label>
               <input
@@ -118,7 +118,7 @@ function PhotoGallery() {
 
             {/* URL Field */}
             <div>
-              <label htmlFor="url" className="block text-lg font-medium text-black/70 mb-2">
+              <label htmlFor="url" className="block d__des mb-2">
                 URL
               </label>
               <input

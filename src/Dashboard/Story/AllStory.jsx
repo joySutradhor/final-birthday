@@ -90,20 +90,20 @@ function AllStory() {
       {isModalOpen && (
         <div className="fixed inset-0 bg-opacity-80 bg-white flex items-center justify-center z-50 w-full">
           <div className="bg-white rounded-md shadow-md p-5 w-1/2 ">
-            <h3 className="subHeading py-4">Update Story</h3>
+            <h3 className="d__subHeading py-4">Update Story</h3>
             <div className="space-y-4">
               <input
                 type="text"
                 value={updatedTitle}
                 onChange={(e) => setUpdatedTitle(e.target.value)}
                 placeholder="Title"
-                className="w-full p-2 border rounded"
+                className="w-full p-2 d__des border rounded outline-none"
               />
               <textarea
                 value={updatedDescription}
                 onChange={(e) => setUpdatedDescription(e.target.value)}
                 placeholder="Description"
-                className="w-full p-2 border rounded"
+                className="w-full p-2 d__des border rounded outline-none"
                 rows={4}
               />
             </div>
@@ -127,7 +127,7 @@ function AllStory() {
 
       {/* Stories Section */}
       <section className="my-20 p-5 md:p-10 border">
-        <h2 className="text-lg font-medium text-black/70 mb-8 flex items-center gap-1">
+        <h2 className="d__title mb-8 flex items-center gap-1">
           <SpeakerNotesIcon />
           Show Your Feelings Here
         </h2>
@@ -136,7 +136,7 @@ function AllStory() {
             stories.map((story) => (
               <div key={story.id} className="border p-5 space-y-4">
                 <div className="flex justify-between gap-10">
-                  <h3 className="text-lg font-medium text-black/70">{story.title}</h3>
+                  <h3 className="d__title">{story.title}</h3>
                   <div className="flex gap-5 items-center cursor-pointer">
                     <span
                       className="hover:text-green-600"
@@ -152,7 +152,7 @@ function AllStory() {
                     </span>
                   </div>
                 </div>
-                <p>{story.des}</p>
+                <p className="d__des">{story.des}</p>
               </div>
             ))
           ) : (

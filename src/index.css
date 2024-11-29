@@ -5,10 +5,22 @@
 @layer utilities {
     /* ============= common styles start =========== */
 
-    .heading {
-      @apply text-2xl  xl:text-4xl font-bold text-white/80 font-custom ;
+    .main__heading {
+      @apply text-center text-xl sm:text-3xl font-custom md:text-4xl font-semibold text-white/60 ;
+    }
+    .menuItem{
+      @apply text-white/80 hover:text-white font-medium font-custom
+    }
+    .hero__heading {
+      @apply text-2xl xl:text-5xl font-bold text-white/90 font-custom
+    }
+    .hero__para{
+      @apply text-lg leading-6 font-custom text-white
     }
 
+    .heading {
+      @apply text-xl md:text-2xl lg:text-3xl font-custom font-bold text-white/80
+    }
     .para {
         @apply text-base lg:text-lg font-normal text-white/80 font-custom ;
     }
@@ -16,13 +28,18 @@
     .sectionSpace{
         @apply px-8 pt-8 sm:px-12 sm:pt-12 md:px-20 md:pt-20 xl:px-28 xl:pt-28 2xl:px-32 2xl:pt-32
     }
-    .subHeading {
-        @apply text-xl  xl:text-xl font-bold text-white/80 font-custom ;
+
+    /* for dashboard */
+    .d__subHeading {
+        @apply text-lg  xl:text-xl font-bold text-black/80 font-custom ;
       }
 
-    .d__heading{
-      @apply text-base font-semibold xl:text-lg xl:font-semibold font-custom
-    }
+      .d__title {
+        @apply text-base xl:text-lg  font-custom font-semibold
+      }
+      .d__des{
+        @apply text-base font-semibold text-black/70 font-custom ;
+      }
 
 
 }

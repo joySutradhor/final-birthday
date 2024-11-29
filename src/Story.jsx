@@ -14,7 +14,7 @@ export default function Story() {
     return (
         <section className='sectionSpace' id='story'>
             <h2 className='heading'>Our Memories</h2>
-            <p className='para pt-5 lg:w-1/3 pb-10'>A collection of moments that define us, capturing the essence of love, laughter, and unforgettable experiences together.</p>
+            <p className='para pt-5 xl:w-1/3 pb-10'>A collection of moments that define us, capturing the essence of love, laughter, and unforgettable experiences together.</p>
 
             {/* story here  */}
             <div className='space-y-10'>
@@ -26,7 +26,7 @@ export default function Story() {
                         </div>
                     ))
                 ) : (
-                    <p className='text-center text-gray-500'>No story available</p>
+                    <p className='text-center font-custom text-gray-500'>No story available</p>
                 )}
             </div>
 

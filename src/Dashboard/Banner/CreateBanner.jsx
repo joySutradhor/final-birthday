@@ -67,7 +67,7 @@ function CreateBanner() {
 
   return (
     <section className="mt-10">
-      <p className="text-lg font-medium text-black/70 mb-3">Create Your Amazing Banner Slider </p>
+      <p className="d__des mb-3">Create Your Amazing Banner Slider </p>
       <div className="border grid lg:grid-cols-2 items-center lg:justify-center p-5 md:p-10 gap-10">
         {/* Image Upload Box */}
         <div
@@ -101,7 +101,7 @@ function CreateBanner() {
           <div className="space-y-5">
             {/* Title Field */}
             <div>
-              <label htmlFor="title" className="block text-lg font-medium text-black/70 mb-2">
+              <label htmlFor="title" className="block d__des mb-2">
                 Title
               </label>
               <input
@@ -117,7 +117,7 @@ function CreateBanner() {
 
             {/* Short Description Field */}
             <div>
-              <label htmlFor="short-description" className="block text-lg font-medium text-black/70 mb-2">
+              <label htmlFor="short-description" className="block d__des mb-2">
                 Short Description
               </label>
               <textarea
