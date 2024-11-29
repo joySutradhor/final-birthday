@@ -21,8 +21,12 @@ export default function Story() {
                 {story && story.length > 0 ? (
                     story.map((item, index) => (
                         <div key={index} className='p-5 border border-white/10 space-y-4'>
-                            <h2 className='subHeading'>{item?.title}</h2>
-                            <p className='para'>{item?.des}</p>
+                            <h2 className='heading'>{item?.title}</h2>
+                            <p className='para' style={{
+                                whiteSpace: "pre-wrap", 
+                                padding: "10px",
+                                
+                            }}>{item?.des}</p>
                         </div>
                     ))
                 ) : (
