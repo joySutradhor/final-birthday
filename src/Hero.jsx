@@ -15,7 +15,7 @@ import { FaQuoteLeft } from "react-icons/fa";
 
 // import required modules
 import { Autoplay, EffectCreative, Navigation, Pagination, Keyboard } from 'swiper/modules';
-import Header from './Header';
+
 
 
 export default function Hero() {
@@ -35,7 +35,6 @@ export default function Hero() {
 
     return (
         <section className='relative' id='home'>
-           <Header/>
             <Swiper
                 spaceBetween={30}
                 grabCursor={true}

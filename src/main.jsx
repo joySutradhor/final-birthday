@@ -13,14 +13,15 @@ import Login from './Dashboard/Login.jsx';
 import { AuthProvider } from './AuthContext.jsx';
 import Dashboard from './Dashboard/Dashboard.jsx';
 import SingleStory from './SingleStory.jsx';
-import Layout from './Layout.jsx';
+import MainLayout from './MainLayout.jsx';
+
 
 
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout></Layout>,
+    element: <MainLayout></MainLayout>,
     children: [
       {
 

@@ -49,7 +49,7 @@ export default function Gallery() {
                     <ImageList variant="masonry" cols={3} gap={8}>
                         {images?.map((item, index) => (
                             <ImageListItem key={item.id} onClick={() => openMedia(item)}>
-                                <div className="image-container relative w-full h-auto group">
+                                <div className="image-container relative w-full h-auto group overflow-x-hidden">
                                     {/* Random Animation for Image */}
                                     {getRandomAnimation() === 'zoom' ? (
                                         <Zoom>
@@ -168,36 +168,44 @@ export default function Gallery() {
                 </Box>
             </div>
 
-            {/* Tailwind Modal */}
             {openModal && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-                    <div className="rounded-lg p-4 relative">
+                <div
+                    className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+                    onClick={closeModal} // Close modal on background click
+                >
+                    <div
+                        className="rounded-lg p-4 relative max-w-3xl w-full flex justify-center items-center relative"
+                        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on the content
+                    >
                         {/* Close Button (X) */}
-                        <button
-                            className="absolute -top-5 -right-10 text-white text-6xl"
+                        {/* <button
+                            className="absolute top-5 right-8 text-white text-6xl"
                             onClick={closeModal}
                         >
                             &times;
-                        </button>
+                        </button> */}
                         {/* Show Video or Image */}
-                        {currentMedia?.url && currentMedia?.url.endsWith('.mp4') ? (
+                        {currentMedia?.url ? (
                             <video
                                 src={currentMedia?.url}
                                 autoPlay
                                 loop
                                 muted
-                                className="max-w-full max-h-screen"
+                                
+                                className="w-[80vw] lg:w-auto h-full object-contain"
                             />
                         ) : (
                             <img
                                 src={currentMedia?.img}
-                                alt={currentMedia?.title}
-                                className="max-w-full max-h-screen"
+                                alt={currentMedia?.title || "Media"}
+                                className="w-[80vw] xl:w-auto h-full object-contain"
                             />
                         )}
                     </div>
                 </div>
             )}
+
+
         </section>
     );
 }

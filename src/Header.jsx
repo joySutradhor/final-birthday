@@ -23,7 +23,7 @@ function Header() {
     };
     return (
 
-        <div className='bg-gradient-to-tr from-[#1F2A3E] to-[#3A424D]  opacity-95 w-full z-50 fixed top-0'>
+        <div className='bg-gradient-to-tr from-[#1F2A3E] to-[#3A424D]   opacity-95 w-full z-50 sticky top-0'>
             <div className='grid grid-cols-12 px-5 lg:px-16 items-center py-2 md:py-4 xl:py-1 w-full'>
                 {/* Left Column: Menu Icon */}
                 <div className='col-span-1 flex justify-start'>
