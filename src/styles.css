@@ -1,0 +1,107 @@
+/* Swiper container styles */
+.mySwiper {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+/* Slide content container */
+.slide-content {
+    position: absolute;
+    top: 50%;
+    left: 8%;
+    right: 8%;
+    transform: translateY(-50%);
+    text-align: left;
+    z-index: 10;
+
+    padding: 20px;
+    max-width: 40%; 
+}
+
+
+
+
+
+/* Slide image */
+img {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+}
+
+/* Responsive styles for tablets */
+@media (max-width: 1500px) {
+    .slide-content {
+        position: absolute;
+        top: 50%;
+        left: 8%;
+        right: 8%;
+        transform: translateY(-50%);
+        color: white;
+        text-align: left;
+        z-index: 10;
+    
+        padding: 20px;
+        max-width: 40%; 
+    }
+
+}
+@media (max-width: 1024px) {
+    .slide-content {
+        position: absolute;
+        top: 50%;
+        left: 8%;
+        right: 8%;
+        transform: translateY(-50%);
+        color: white;
+        text-align: left;
+        z-index: 10;
+    
+        padding: 20px;
+        max-width: 60%; 
+    }
+
+
+}
+
+/* Responsive styles for mobile phones */
+@media (max-width: 768px) {
+    .slide-content {
+        position: absolute;
+        top: 50%;
+        left: 8%;
+        transform: translateY(-50%);
+        color: white;
+        text-align: left;
+        z-index: 10;
+    
+        padding: 20px;
+        max-width: 85%; 
+    }
+
+
+
+    img {
+        height: 100vh; 
+    }
+}
+
+/* Smallest screens */
+@media (max-width: 480px) {
+    .slide-content {
+        position: absolute;
+        top: 50%;
+        left: 8%;
+        right: 8%;
+        transform: translateY(-50%);
+        color: white;
+        text-align: left;
+        z-index: 10;
+    
+        padding: 20px;
+        max-width: 100%; 
+    }
+
+
+}
