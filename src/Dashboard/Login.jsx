@@ -2,10 +2,9 @@ import { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
-import Swal from 'sweetalert2'; // Import SweetAlert2
+import Swal from 'sweetalert2';
 
 function Login() {
-  // Dummy user object
   const dummyUser = {
     email: 'valulizer',
     password: 'WillYouMarryMe',
@@ -16,8 +15,7 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setPasswordVisible((prevState) => !prevState);
@@ -26,12 +24,9 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validate user credentials
     if (email === dummyUser.email && password === dummyUser.password) {
       setError('');
-      login(); // Set authenticated state
-
-      // Show SweetAlert upon successful login
+      login(); // Authenticate user
       Swal.fire({
         icon: 'success',
         title: 'Login Successful!',
@@ -39,7 +34,7 @@ function Login() {
         confirmButtonText: 'Go to Dashboard',
       }).then((result) => {
         if (result.isConfirmed) {
-          navigate('/dashboardWebsite'); // Redirect to dashboard after confirmation
+          navigate('/dashboardWebsite'); // Redirect to dashboard
         }
       });
     } else {
@@ -87,10 +82,7 @@ function Login() {
             </span>
           </div>
           {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
-          <button
-            type="submit"
-            className="w-full bg-gray-700 text-white py-2 rounded-sm"
-          >
+          <button type="submit" className="w-full bg-gray-700 text-white py-2 rounded-sm">
             Login Here
           </button>
         </form>
