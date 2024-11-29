@@ -23,7 +23,7 @@ function Header() {
     };
     return (
 
-        <div className='bg-gradient-to-tr from-[#1F2A3E] to-[#3A424D]  opacity-90 w-full z-50 fixed top-0'>
+        <div className='bg-gradient-to-tr from-[#1F2A3E] to-[#3A424D]  opacity-95 w-full z-50 fixed top-0'>
             <div className='grid grid-cols-12 px-5 lg:px-16 items-center py-2 md:py-4 xl:py-1 w-full'>
                 {/* Left Column: Menu Icon */}
                 <div className='col-span-1 flex justify-start'>
@@ -53,7 +53,7 @@ function Header() {
 
             {/* Sliding Menu */}
             <div
-                className={`absolute top-0 left-0 bg-gradient-to-tr from-[#1F2A3E] via-[#3A424D] to-[#EFE1BE] transition-transform duration-300 h-[100dvh] overflow-auto overflow-x-hidden p-4 md:p-8 w-[50vw] sm:w-[50vw] md:w-[30vw] lg:w-[25vw] xl:w-[20vw] ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
+                className={`absolute top-0 left-0 bg-gradient-to-tr from-[#1F2A3E] via-[#3A424D] to-[#EFE1BE] transition-transform duration-300 h-[100dvh] overflow-auto overflow-x-hidden p-4 md:p-8 w-[80vw] sm:w-[80vw] md:w-[50vw] lg:w-[35vw] xl:w-[20vw] ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
             >
                 <div className='flex justify-end'>
                     {/* Close Icon */}
