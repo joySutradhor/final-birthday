@@ -7,7 +7,7 @@ import { HashLink as Link } from 'react-router-hash-link';
 import gift from "/gift.gif"
 import { FaSignInAlt } from "react-icons/fa";
 
-function Header() {
+function StoryHeader() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [story, setStory] = useState([]);
 
@@ -23,7 +23,7 @@ function Header() {
     };
     return (
 
-        <div className='bg-gradient-to-tr from-[#1F2A3E] to-[#3A424D] z-50  opacity-95 w-full z-50 sticky top-0'>
+        <div className='bg-gradient-to-tr from-[#1F2A3E] to-[#3A424D] z-50  opacity-95 w-full  sticky top-0'>
             <div className='grid grid-cols-12 px-5 lg:px-16 items-center py-2 md:py-4 xl:py-1 w-full'>
                 {/* Left Column: Menu Icon */}
                 <div className='col-span-1 flex justify-start'>
@@ -38,7 +38,7 @@ function Header() {
 
                 {/* Center Column: Title */}
                 <div className='col-span-10 flex justify-center items-center'>
-                    <Link smooth to="#home">
+                    <Link smooth to="/">
                         <div className='flex items-center'>
                             <h1 className='main__heading '> Happy Birthday Dear
                             </h1>
@@ -67,12 +67,11 @@ function Header() {
                         <FaHome className="mr-2 inline" />
                         Home
                     </Link>
-
-                    <Link smooth to="#gallery" onClick={handleLinkClick} className="menuItem">
+                    <Link smooth to="/#gallery" onClick={handleLinkClick} className="menuItem">
                         <FaImages className="mr-2 inline" />
                         Photo Gallery
                     </Link>
-                    <Link smooth to="#videos" onClick={handleLinkClick} className="menuItem">
+                    <Link smooth to="/#videos" onClick={handleLinkClick} className="menuItem">
                         <FaFilm className="mr-2 inline" />
                         Video Frame
                     </Link>
@@ -94,4 +93,4 @@ function Header() {
     )
 }
 
-export default Header
+export default StoryHeader

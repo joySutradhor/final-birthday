@@ -11,7 +11,7 @@ function Videos() {
             .catch((error) => console.error('Error fetching story:', error));
     }, []);
     return (
-        <section className='sectionSpace pb-32' id='videos'>
+        <section className='sectionSpace pb-16 lg:pb-32' id='videos'>
             <h2 className='heading'>Our events</h2>
             <p className='para pt-5 lg:w-1/3 pb-10'>Our events celebrate love and creativity, offering unforgettable experiences that inspire connection and joy in every moment</p>
 
