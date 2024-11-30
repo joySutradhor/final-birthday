@@ -199,10 +199,10 @@ export default function AllBanner() {
             </div>
 
             {showModal && (
-                <div className="fixed inset-0 bg-white/15 bg-opacity-50 flex justify-center items-center">
-                    <div className="bg-white p-6 rounded-md w-[95%] md:w-[60%] lg:w-[45%] xl:w-1/3">
+                <div className="fixed inset-0 bg-white/15 bg-opacity-50 flex justify-center items-center ">
+                    <div className="bg-white p-6 rounded-md w-[95%] md:w-[60%] lg:w-[45%] xl:w-1/3  my-16 lg:my-0 border">
                         {/* <h3 className="d__subHeading mb-4">Edit Banner</h3> */}
-                        <form onSubmit={handleFormSubmit}>
+                        <form onSubmit={handleFormSubmit} className="overflow-scroll">
                             <div className="mb-4">
                                 <label
                                     htmlFor="image"

@@ -211,7 +211,7 @@ export default function AllPhoto() {
 
             {showModal && (
                 <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center">
-                    <div className="bg-white p-6 rounded-md w-[95%] md:w-[60%] lg:w-[45%] xl:w-1/3">
+                    <div className="bg-white p-6 rounded-md w-[95%] md:w-[60%] lg:w-[45%] xl:w-1/3 my-16 lg:my-0 border">
                         <h3 className="d__subHeading mb-4">Edit Photo Gallery</h3>
                         <form onSubmit={handleFormSubmit}>
                             <div className="mb-4">
