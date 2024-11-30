@@ -49,7 +49,7 @@ export default function Gallery() {
                     <ImageList variant="masonry" cols={3} gap={8}>
                         {images?.map((item, index) => (
                             <ImageListItem key={item.id} onClick={() => openMedia(item)}>
-                                <div className="image-container relative w-full h-auto group overflow-x-hidden">
+                                <div className="image-container relative w-full h-auto group overflow-x-hidden overflow-y-hidden">
                                     {/* Random Animation for Image */}
                                     {getRandomAnimation() === 'zoom' ? (
                                         <Zoom>
@@ -58,7 +58,7 @@ export default function Gallery() {
                                                 src={`${item?.img}?w=248&fit=crop&auto=format`}
                                                 alt={item.title}
                                                 loading="lazy"
-                                                className="brightness-50"
+                                                className="brightness-90"
                                                 style={{
                                                     width: '100%',
                                                     height: 'auto',
@@ -74,7 +74,7 @@ export default function Gallery() {
                                                 src={`${item?.img}?w=248&fit=crop&auto=format`}
                                                 alt={item.title}
                                                 loading="lazy"
-                                                className="brightness-50"
+                                                className="brightness-90"
                                                 style={{
                                                     width: '100%',
                                                     height: 'auto',
@@ -90,7 +90,7 @@ export default function Gallery() {
                                                 src={`${item?.img}?w=248&fit=crop&auto=format`}
                                                 alt={item.title}
                                                 loading="lazy"
-                                                className="brightness-50"
+                                                className="brightness-90"
                                                 style={{
                                                     width: '100%',
                                                     height: 'auto',
@@ -106,7 +106,7 @@ export default function Gallery() {
                                                 src={`${item?.img}?w=248&fit=crop&auto=format`}
                                                 alt={item.title}
                                                 loading="lazy"
-                                                className="brightness-50"
+                                                className="brightness-90"
                                                 style={{
                                                     width: '100%',
                                                     height: 'auto',
@@ -122,6 +122,7 @@ export default function Gallery() {
                                         src={item.url}
                                         width="100%"
                                         height="100%"
+                                        className='overflow-hidden'
                                         autoPlay
                                         loop
                                         muted
@@ -144,13 +145,13 @@ export default function Gallery() {
                                     </div>
 
                                     {/* Hover Effect: Play Video and Show Title */}
-                                    <div className="absolute inset-0 group-hover:opacity-100 group-hover:opacity-1 transition-opacity duration-300">
+                                    <div className="absolute inset-0  group-hover:opacity-100 group-hover:opacity-1 transition-opacity duration-300">
                                         <video
                                             src={item.url}
                                             autoPlay
                                             loop
                                             muted
-                                            className="w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                            className="w-full h-full  object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                                             onMouseEnter={(e) => e.target.play()} // Play video on hover
                                             onMouseLeave={(e) => {
                                                 e.target.pause(); // Pause video when mouse leaves
@@ -158,7 +159,7 @@ export default function Gallery() {
                                             }}
                                         />
                                         <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                            <h3 className="text-white text-xl font-bold px-[5%]">{item.title}</h3>
+                                            <h3 className="text-white text-xs md:text-xl font-bold px-[5%]">{item.title}</h3>
                                         </div>
                                     </div>
                                 </div>
@@ -171,20 +172,12 @@ export default function Gallery() {
             {openModal && (
                 <div
                     className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
-                    onClick={closeModal} // Close modal on background click
+                    onClick={closeModal} 
                 >
                     <div
-                        className="rounded-lg p-4 relative max-w-3xl w-full flex justify-center items-center relative"
+                        className="rounded-lg p-4 relative max-w-3xl w-full flex justify-center items-center "
                         onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on the content
                     >
-                        {/* Close Button (X) */}
-                        {/* <button
-                            className="absolute top-5 right-8 text-white text-6xl"
-                            onClick={closeModal}
-                        >
-                            &times;
-                        </button> */}
-                        {/* Show Video or Image */}
                         {currentMedia?.url ? (
                             <video
                                 src={currentMedia?.url}

@@ -89,7 +89,7 @@ function AllStory() {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-opacity-80 bg-white flex items-center justify-center z-50 w-full">
-          <div className="bg-white rounded-md shadow-md p-5 w-1/2 ">
+          <div className="bg-white rounded-md shadow-md p-5 w-[95%] md:w-[60%] lg:w-[45%] xl:w-1/2 ">
             <h3 className="d__subHeading py-4">Update Story</h3>
             <div className="space-y-4">
               <input
