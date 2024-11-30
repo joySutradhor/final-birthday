@@ -8,8 +8,8 @@ export default function AllPhoto() {
     const [showModal, setShowModal] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
     const [updatedTitle, setUpdatedTitle] = useState("");
-    const [updatedUrl, setUpdatedUrl] = useState("");
     const [newImage, setNewImage] = useState(null);
+    const [newVideo, setNewVideo] = useState(null);
 
     // Fetch slide data
     useEffect(() => {
@@ -19,16 +19,16 @@ export default function AllPhoto() {
             .catch((error) => console.error("Error fetching slides:", error));
     }, []);
 
-    // Cloudinary upload function
-    const uploadToCloudinary = async (file) => {
-        const cloudinaryUrl = "https://api.cloudinary.com/v1_1/joysutradhor/image/upload";
+    // Cloudinary upload function for both images and videos
+    const uploadToCloudinary = async (file, type = "image") => {
+        const cloudinaryUrl = `https://api.cloudinary.com/v1_1/joysutradhor/${type}/upload`;
         const formData = new FormData();
         formData.append("file", file);
         formData.append("upload_preset", "shahinvai");
 
         try {
             const response = await axios.post(cloudinaryUrl, formData);
-            return response.data.secure_url; // Get the uploaded image URL
+            return response.data.secure_url; // Get the uploaded URL
         } catch (error) {
             throw error;
         }
@@ -39,36 +39,25 @@ export default function AllPhoto() {
         const image = images.find((img) => img.id === id);
         setSelectedImage(image);
         setUpdatedTitle(image.title);
-        setUpdatedUrl(image.url);
         setNewImage(image.img);
+        setNewVideo(image.url);
         setShowModal(true);
     };
 
     // Delete button handler with permission prompt
     const handleDelete = async (id) => {
-        const swalWithBootstrapButtons = Swal.mixin();
-
-        swalWithBootstrapButtons
-            .fire({
-                title: "Are you sure?",
-                text: "This action cannot be undone.",
-                icon: "question",
-                showCancelButton: true,
-                confirmButtonText: "Yes, delete it",
-                cancelButtonText: "No, cancel",
-                reverseButtons: true,
-            })
-            .then((result) => {
-                if (result.isConfirmed) {
-                    deleteBanner(id);
-                } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    Swal.fire({
-                        title: "Cancelled",
-                        text: "Your banner is safe!",
-                        icon: "info",
-                    });
-                }
-            });
+        Swal.fire({
+            title: "Are you sure?",
+            text: "This action cannot be undone.",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete it",
+            cancelButtonText: "No, cancel",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteBanner(id);
+            }
+        });
     };
 
     const deleteBanner = async (id) => {
@@ -90,6 +79,15 @@ export default function AllPhoto() {
         }
     };
 
+    // Video change handler
+    const handleVideoChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const fileUrl = URL.createObjectURL(file);
+            setNewVideo(fileUrl);
+        }
+    };
+
     // Submit form handler with permission prompt
     const handleFormSubmit = async (e) => {
         e.preventDefault();
@@ -100,52 +98,61 @@ export default function AllPhoto() {
             icon: "success",
             showCancelButton: true,
             confirmButtonText: "Yes, update it!",
-            cancelButtonText: "No, cancel!",
         }).then(async (result) => {
             if (result.isConfirmed) {
                 updateBanner();
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                Swal.fire({
-                    title: "Cancelled",
-                    text: "No changes were made to the banner.",
-                    icon: "info",
-                });
             }
         });
     };
 
     const updateBanner = async () => {
         try {
-            let imageUrl = selectedImage.img; // Default to existing image URL
+            let imageUrl = selectedImage.img; 
+            let videoUrl = selectedImage.url; 
+    
             if (newImage && newImage !== selectedImage.img) {
+                console.log("Uploading new image...");
                 const file = document.getElementById("image").files[0];
-                imageUrl = await uploadToCloudinary(file); // Upload to Cloudinary
+                imageUrl = await uploadToCloudinary(file, "image");
+                console.log("Image uploaded:", imageUrl);
             }
-
+    
+            if (newVideo && newVideo !== selectedImage.url) {
+                console.log("Uploading new video...");
+                const file = document.getElementById("video").files[0];
+                videoUrl = await uploadToCloudinary(file, "video");
+                console.log("Video uploaded:", videoUrl);
+            }
+    
+            console.log("Sending data to API:", { title: updatedTitle, img: imageUrl, url: videoUrl });
             const response = await axios.patch(
                 `https://birthday-gift-express.vercel.app/api/v1/gallery/${selectedImage.id}`,
                 {
                     title: updatedTitle,
                     img: imageUrl,
-                    url: updatedUrl
+                    url: videoUrl,
                 }
             );
-
+    
+            console.log("API Response:", response.data);
+    
             if (response.status === 200) {
                 setImages((prevImages) =>
                     prevImages.map((img) =>
                         img.id === selectedImage.id
-                            ? { ...img, title: updatedTitle,  img: imageUrl }
+                            ? { ...img, title: updatedTitle, img: imageUrl, video: videoUrl }
                             : img
                     )
                 );
                 setShowModal(false);
-                Swal.fire("Updated!", "Your banner has been updated.", "success");
+                Swal.fire("Updated!", "Your Gallery has been updated.", "success");
             }
         } catch (error) {
-            Swal.fire("Error!", "Unable to update the banner.", "error");
+            console.error("Error updating gallery:", error);
+            Swal.fire("Error!", "Unable to update the gallery.", "error");
         }
     };
+    
 
     const handleModalClose = () => {
         setShowModal(false);
@@ -153,7 +160,7 @@ export default function AllPhoto() {
 
     return (
         <section className="py-10 md:py-20">
-            <h2 className="flex gap-1 items-center  d__subHeading ">
+            <h2 className="flex gap-1 items-center d__subHeading">
                 <span>
                     <CollectionsIcon />
                 </span>{" "}
@@ -216,7 +223,7 @@ export default function AllPhoto() {
                                 />
                             </div>
                             {newImage && (
-                                <div className="mb-4">
+                                <div className="mb-4 md:mb-10">
                                     <img
                                         src={newImage}
                                         alt="New Preview"
@@ -224,6 +231,32 @@ export default function AllPhoto() {
                                     />
                                 </div>
                             )}
+                            <div className="mb-4">
+                                <label
+                                    htmlFor="video"
+                                    className="block d__des mb-2"
+                                >
+                                    Select New Video
+                                </label>
+                                <input
+                                    type="file"
+                                    id="video"
+                                    onChange={handleVideoChange}
+                                    className="w-full px-4 py-2 border rounded-sm focus:outline-none"
+                                />
+                            </div>
+                            {newVideo && (
+                                <div className="mb-4">
+                                    <video
+                                        src={newVideo}
+                                        autoPlay
+                                        muted
+                                        loop
+                                        className="w-full h-40 object-cover rounded-md"
+                                    />
+                                </div>
+                            )}
+
                             <div className="mb-4">
                                 <label
                                     htmlFor="title"
@@ -240,33 +273,17 @@ export default function AllPhoto() {
                                 />
                             </div>
 
-                            <div className="mb-4">
-                                <label
-                                    htmlFor="url"
-                                    className="block d__des mb-2"
-                                >
-                                    Url
-                                </label>
-                                <input
-                                    type="text"
-                                    id="url"
-                                    value={updatedUrl}
-                                    onChange={(e) => setUpdatedUrl(e.target.value)}
-                                    className="w-full px-4 py-2 border rounded-sm focus:outline-none"
-                                />
-                            </div>
-                            <div className="flex justify-between items-center">
+                            <div className="flex justify-between mt-5 md:mt-10">
                                 <button
                                     type="submit"
-
-                                    className="bg-green-600 text-white px-4 py-2 rounded-md"
+                                    className="bg-green-700 text-white px-6 py-2 rounded-sm"
                                 >
-                                    Save Changes
+                                    Update
                                 </button>
                                 <button
                                     type="button"
                                     onClick={handleModalClose}
-                                    className="bg-gray-700 text-white px-4 py-2 rounded-md"
+                                    className="bg-gray-400 text-white px-6 py-2 rounded-sm"
                                 >
                                     Cancel
                                 </button>

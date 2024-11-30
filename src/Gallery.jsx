@@ -158,7 +158,7 @@ export default function Gallery() {
                                             }}
                                         />
                                         <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                            <h3 className="text-white text-xl font-bold">{item.title}</h3>
+                                            <h3 className="text-white text-xl font-bold px-[5%]">{item.title}</h3>
                                         </div>
                                     </div>
                                 </div>
