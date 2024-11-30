@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import axios from 'axios';
+import Swal from 'sweetalert2';  // Import SweetAlert2
 
 function PhotoGallery() {
   const [imagePreview, setImagePreview] = useState(null);
@@ -37,56 +38,73 @@ function PhotoGallery() {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    setLoading(true);
+    // SweetAlert2 confirmation dialog
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you want to submit this gallery?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Submit!',
+      cancelButtonText: 'Cancel',
+    });
 
-    try {
-      // Upload image to Cloudinary
-      const imageFormData = new FormData();
-      imageFormData.append('file', imageFile);
-      imageFormData.append('upload_preset', 'shahinvai');
-      const cloudinaryImageResponse = await axios.post(
-        'https://api.cloudinary.com/v1_1/joysutradhor/image/upload',
-        imageFormData
-      );
+    if (result.isConfirmed) {
+      setLoading(true);
 
-      const imageUrl = cloudinaryImageResponse.data.secure_url;
+      try {
+        // Upload image to Cloudinary
+        const imageFormData = new FormData();
+        imageFormData.append('file', imageFile);
+        imageFormData.append('upload_preset', 'shahinvai');
+        const cloudinaryImageResponse = await axios.post(
+          'https://api.cloudinary.com/v1_1/joysutradhor/image/upload',
+          imageFormData
+        );
 
-      // Upload video to Cloudinary
-      const videoFormData = new FormData();
-      videoFormData.append('file', videoFile);
-      videoFormData.append('upload_preset', 'shahinvai');
-      const cloudinaryVideoResponse = await axios.post(
-        'https://api.cloudinary.com/v1_1/joysutradhor/video/upload',
-        videoFormData
-      );
+        const imageUrl = cloudinaryImageResponse.data.secure_url;
 
-      const videoUrl = cloudinaryVideoResponse.data.secure_url;
+        // Upload video to Cloudinary
+        const videoFormData = new FormData();
+        videoFormData.append('file', videoFile);
+        videoFormData.append('upload_preset', 'shahinvai');
+        const cloudinaryVideoResponse = await axios.post(
+          'https://api.cloudinary.com/v1_1/joysutradhor/video/upload',
+          videoFormData
+        );
 
-      // Prepare data for the backend
-      const galleryData = {
-        title,
-        img: imageUrl,
-        url: videoUrl, 
-      };
-      console.log(galleryData);
+        const videoUrl = cloudinaryVideoResponse.data.secure_url;
 
-      const response = await axios.post('https://birthday-gift-express.vercel.app/api/v1/gallery/create', galleryData);
+        // Prepare data for the backend
+        const galleryData = {
+          title,
+          img: imageUrl,
+          url: videoUrl, 
+        };
+        console.log(galleryData);
 
-      if (response.status === 200) {
-        console.log('Banner created successfully');
+        const response = await axios.post('https://birthday-gift-express.vercel.app/api/v1/gallery/create', galleryData);
 
-        // Clear form after submission
-        setTitle('');
-        setImagePreview(null);
-        setImageFile(null);
-        setVideoPreview(null);
-        setVideoFile(null);
+        if (response.status === 200) {
+          console.log('Banner created successfully');
+
+          // Clear form after submission
+          setTitle('');
+          setImagePreview(null);
+          setImageFile(null);
+          setVideoPreview(null);
+          setVideoFile(null);
+
+          // Show success alert
+          Swal.fire('Success', 'Gallery submitted successfully!', 'success');
+        }
+      } catch (error) {
+        console.error('Error uploading media or posting data:', error);
+        alert(error.message);
+        // Show error alert
+        Swal.fire('Error', 'There was an issue uploading the media. Please try again.', 'error');
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error('Error uploading media or posting data:', error);
-      alert(error.message);
-    } finally {
-      setLoading(false);
     }
   };
 

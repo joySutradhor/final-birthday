@@ -10,6 +10,7 @@ export default function AllPhoto() {
     const [updatedTitle, setUpdatedTitle] = useState("");
     const [newImage, setNewImage] = useState(null);
     const [newVideo, setNewVideo] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     // Fetch slide data
     useEffect(() => {
@@ -56,6 +57,7 @@ export default function AllPhoto() {
         }).then((result) => {
             if (result.isConfirmed) {
                 deleteBanner(id);
+                setLoading(true);
             }
         });
     };
@@ -65,6 +67,7 @@ export default function AllPhoto() {
             await axios.delete(`https://birthday-gift-express.vercel.app/api/v1/gallery/${id}`);
             setImages((prevImages) => prevImages.filter((img) => img.id !== id));
             Swal.fire("Deleted!", "Your banner has been deleted.", "success");
+            setLoading(false);
         } catch (error) {
             Swal.fire("Error!", "Unable to delete the banner.", "error");
         }
@@ -91,7 +94,7 @@ export default function AllPhoto() {
     // Submit form handler with permission prompt
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-
+        
         Swal.fire({
             title: "Confirm Update",
             text: "Are you sure you want to update this banner?",
@@ -101,6 +104,8 @@ export default function AllPhoto() {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 updateBanner();
+                setLoading(true);
+                
             }
         });
     };
@@ -145,6 +150,7 @@ export default function AllPhoto() {
                     )
                 );
                 setShowModal(false);
+                setLoading(false);
                 Swal.fire("Updated!", "Your Gallery has been updated.", "success");
             }
         } catch (error) {
@@ -220,6 +226,7 @@ export default function AllPhoto() {
                                     id="image"
                                     onChange={handleImageChange}
                                     className="w-full px-4 py-2 border rounded-sm focus:outline-none"
+                                    disabled={loading}
                                 />
                             </div>
                             {newImage && (
@@ -243,6 +250,7 @@ export default function AllPhoto() {
                                     id="video"
                                     onChange={handleVideoChange}
                                     className="w-full px-4 py-2 border rounded-sm focus:outline-none"
+                                    disabled={loading}
                                 />
                             </div>
                             {newVideo && (
@@ -270,6 +278,7 @@ export default function AllPhoto() {
                                     value={updatedTitle}
                                     onChange={(e) => setUpdatedTitle(e.target.value)}
                                     className="w-full px-4 py-2 border rounded-sm focus:outline-none"
+                                    disabled={loading}
                                 />
                             </div>
 
@@ -277,13 +286,15 @@ export default function AllPhoto() {
                                 <button
                                     type="submit"
                                     className="bg-green-700 text-white px-6 py-2 rounded-sm"
+                                    disabled={loading}
                                 >
-                                    Update
+                                   {loading ? "Uploading..." : "Update"}
                                 </button>
                                 <button
                                     type="button"
                                     onClick={handleModalClose}
                                     className="bg-gray-400 text-white px-6 py-2 rounded-sm"
+                                    disabled={loading}
                                 >
                                     Cancel
                                 </button>
