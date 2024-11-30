@@ -14,7 +14,7 @@ export default function AllPhoto() {
     // Fetch slide data
     useEffect(() => {
         axios
-            .get("https://birthday-gift-server.vercel.app/api/v1/gallery")
+            .get("https://birthday-gift-express.vercel.app/api/v1/gallery")
             .then((response) => setImages(response.data.data))
             .catch((error) => console.error("Error fetching slides:", error));
     }, []);
@@ -73,7 +73,7 @@ export default function AllPhoto() {
 
     const deleteBanner = async (id) => {
         try {
-            await axios.delete(`https://birthday-gift-server.vercel.app/api/v1/gallery/${id}`);
+            await axios.delete(`https://birthday-gift-express.vercel.app/api/v1/gallery/${id}`);
             setImages((prevImages) => prevImages.filter((img) => img.id !== id));
             Swal.fire("Deleted!", "Your banner has been deleted.", "success");
         } catch (error) {
@@ -123,7 +123,7 @@ export default function AllPhoto() {
             }
 
             const response = await axios.patch(
-                `https://birthday-gift-server.vercel.app/api/v1/gallery/${selectedImage.id}`,
+                `https://birthday-gift-express.vercel.app/api/v1/gallery/${selectedImage.id}`,
                 {
                     title: updatedTitle,
                     img: imageUrl,

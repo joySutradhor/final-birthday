@@ -5,7 +5,7 @@ function Videos() {
 
     // Fetch slide data
     useEffect(() => {
-        fetch('https://birthday-gift-server.vercel.app/api/v1/video')
+        fetch('https://birthday-gift-express.vercel.app/api/v1/video')
             .then((response) => response.json())
             .then((data) => setVideos(data.data))
             .catch((error) => console.error('Error fetching story:', error));

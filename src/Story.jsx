@@ -5,7 +5,7 @@ export default function Story() {
 
     // Fetch slide data
     useEffect(() => {
-        fetch('https://birthday-gift-server.vercel.app/api/v1/storey')
+        fetch('https://birthday-gift-express.vercel.app/api/v1/storey')
             .then((response) => response.json())
             .then((data) => setStory(data.data))
             .catch((error) => console.error('Error fetching story:', error));

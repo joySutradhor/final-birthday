@@ -47,7 +47,7 @@ function PhotoGallery() {
       };
       console.log(galleryData);
 
-      const response = await axios.post('https://birthday-gift-server.vercel.app/api/v1/gallery/create', galleryData);
+      const response = await axios.post('https://birthday-gift-express.vercel.app/api/v1/gallery/create', galleryData);
 
       if (response.status === 200) {
         console.log('Banner created successfully');

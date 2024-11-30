@@ -24,7 +24,7 @@ export default function Hero() {
    
     // Fetch slide data
     useEffect(() => {
-        fetch('https://birthday-gift-server.vercel.app/api/v1/slider')
+        fetch('https://birthday-gift-express.vercel.app/api/v1/slider')
             .then((response) => response.json())
             .then((data) => setSlides(data.data))
             .catch((error) => console.error('Error fetching slides:', error));
