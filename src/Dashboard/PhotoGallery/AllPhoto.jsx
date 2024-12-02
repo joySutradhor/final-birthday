@@ -94,7 +94,7 @@ export default function AllPhoto() {
     // Submit form handler with permission prompt
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-        
+
         Swal.fire({
             title: "Confirm Update",
             text: "Are you sure you want to update this banner?",
@@ -105,30 +105,30 @@ export default function AllPhoto() {
             if (result.isConfirmed) {
                 updateBanner();
                 setLoading(true);
-                
+
             }
         });
     };
 
     const updateBanner = async () => {
         try {
-            let imageUrl = selectedImage.img; 
-            let videoUrl = selectedImage.url; 
-    
+            let imageUrl = selectedImage.img;
+            let videoUrl = selectedImage.url;
+
             if (newImage && newImage !== selectedImage.img) {
                 console.log("Uploading new image...");
                 const file = document.getElementById("image").files[0];
                 imageUrl = await uploadToCloudinary(file, "image");
                 console.log("Image uploaded:", imageUrl);
             }
-    
+
             if (newVideo && newVideo !== selectedImage.url) {
                 console.log("Uploading new video...");
                 const file = document.getElementById("video").files[0];
                 videoUrl = await uploadToCloudinary(file, "video");
                 console.log("Video uploaded:", videoUrl);
             }
-    
+
             console.log("Sending data to API:", { title: updatedTitle, img: imageUrl, url: videoUrl });
             const response = await axios.patch(
                 `https://birthday-gift-express.vercel.app/api/v1/gallery/${selectedImage.id}`,
@@ -138,9 +138,9 @@ export default function AllPhoto() {
                     url: videoUrl,
                 }
             );
-    
+
             console.log("API Response:", response.data);
-    
+
             if (response.status === 200) {
                 setImages((prevImages) =>
                     prevImages.map((img) =>
@@ -158,7 +158,7 @@ export default function AllPhoto() {
             Swal.fire("Error!", "Unable to update the gallery.", "error");
         }
     };
-    
+
 
     const handleModalClose = () => {
         setShowModal(false);
@@ -210,99 +210,100 @@ export default function AllPhoto() {
             </div>
 
             {showModal && (
-                <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center">
-                    <div className="bg-white p-6 rounded-md w-[95%] md:w-[60%] lg:w-[45%] xl:w-1/3 my-16 lg:my-0 border">
-                        <h3 className="d__subHeading mb-4">Edit Photo Gallery</h3>
-                        <form onSubmit={handleFormSubmit}>
-                            <div className="mb-4">
-                                <label
-                                    htmlFor="image"
-                                    className="block d__des mb-2"
-                                >
-                                    Select New Image
-                                </label>
-                                <input
-                                    type="file"
-                                    id="image"
-                                    onChange={handleImageChange}
-                                    className="w-full px-4 py-2 border rounded-sm focus:outline-none"
-                                    disabled={loading}
+    <div className="fixed inset-0 bg-white bg-opacity-100 lg:bg-opacity-80 flex justify-center items-center z-50 overflow-auto">
+        <div className="bg-white p-6 rounded-md w-[95%] sm:w-[80%] md:w-[70%] lg:w-[35%] xl:w-[60%] max-h-[90vh] overflow-y-auto my-10 lg:mt-[10%] 2xl:mt-0 border">
+            <h3 className="d__subHeading mb-4">Edit Photo Gallery</h3>
+            <form onSubmit={handleFormSubmit}>
+                <div className="grid xl:grid-cols-2 gap-10 justify-between">
+                    {/* Image Preview */}
+                    <div className="border md:p-5 p-3">
+                        <div className="mb-4">
+                            <label htmlFor="image" className="block d__des mb-2">
+                                Select New Image
+                            </label>
+                            <input
+                                type="file"
+                                id="image"
+                                onChange={handleImageChange}
+                                className="w-full px-4 py-2 border rounded-sm focus:outline-none"
+                                disabled={loading}
+                            />
+                        </div>
+                        {newImage && (
+                            <div className="mb-4 md:mb-10">
+                                <img
+                                    src={newImage}
+                                    alt="New Preview"
+                                    className="w-full h-40 object-cover rounded-md"
                                 />
                             </div>
-                            {newImage && (
-                                <div className="mb-4 md:mb-10">
-                                    <img
-                                        src={newImage}
-                                        alt="New Preview"
-                                        className="w-full h-40 object-cover rounded-md"
-                                    />
-                                </div>
-                            )}
-                            <div className="mb-4">
-                                <label
-                                    htmlFor="video"
-                                    className="block d__des mb-2"
-                                >
-                                    Select New Video
-                                </label>
-                                <input
-                                    type="file"
-                                    id="video"
-                                    onChange={handleVideoChange}
-                                    className="w-full px-4 py-2 border rounded-sm focus:outline-none"
-                                    disabled={loading}
-                                />
-                            </div>
-                            {newVideo && (
-                                <div className="mb-4">
-                                    <video
-                                        src={newVideo}
-                                        autoPlay
-                                        muted
-                                        loop
-                                        className="w-full h-40 object-cover rounded-md"
-                                    />
-                                </div>
-                            )}
+                        )}
+                    </div>
 
+                    {/* Video Preview */}
+                    <div className="border md:p-5 p-3">
+                        <div className="mb-4">
+                            <label htmlFor="video" className="block d__des mb-2">
+                                Select New Video
+                            </label>
+                            <input
+                                type="file"
+                                id="video"
+                                onChange={handleVideoChange}
+                                className="w-full px-4 py-2 border rounded-sm focus:outline-none"
+                                disabled={loading}
+                            />
+                        </div>
+                        {newVideo && (
                             <div className="mb-4">
-                                <label
-                                    htmlFor="title"
-                                    className="block d__des mb-2"
-                                >
-                                    Title
-                                </label>
-                                <input
-                                    type="text"
-                                    id="title"
-                                    value={updatedTitle}
-                                    onChange={(e) => setUpdatedTitle(e.target.value)}
-                                    className="w-full px-4 py-2 border rounded-sm focus:outline-none"
-                                    disabled={loading}
+                                <video
+                                    src={newVideo}
+                                    autoPlay
+                                    muted
+                                    loop
+                                    className="w-full h-40 object-cover rounded-md"
                                 />
                             </div>
-
-                            <div className="flex justify-between mt-5 md:mt-10">
-                                <button
-                                    type="submit"
-                                    className="bg-green-700 text-white px-6 py-2 rounded-sm"
-                                    disabled={loading}
-                                >
-                                   {loading ? "Uploading..." : "Update"}
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={handleModalClose}
-                                    className="bg-gray-400 text-white px-6 py-2 rounded-sm"
-                                    disabled={loading}
-                                >
-                                    Cancel
-                                </button>
-                            </div>
-                        </form>
+                        )}
                     </div>
                 </div>
-            )}
+
+                <div className="mb-4 mt-10 md:mt-10">
+                    <label htmlFor="title" className="block d__des mb-2">
+                        Title
+                    </label>
+                    <input
+                        type="text"
+                        id="title"
+                        value={updatedTitle}
+                        onChange={(e) => setUpdatedTitle(e.target.value)}
+                        className="w-full px-4 py-2 border rounded-sm focus:outline-none"
+                        disabled={loading}
+                    />
+                </div>
+
+                <div className="flex justify-between mt-5 md:mt-10">
+                    <button
+                        type="submit"
+                        className="bg-green-700 text-white px-6 py-2 rounded-sm"
+                        disabled={loading}
+                    >
+                        {loading ? "Uploading..." : "Update"}
+                    </button>
+                    <button
+                        type="button"
+                        onClick={handleModalClose}
+                        className="bg-gray-400 text-white px-6 py-2 rounded-sm"
+                        disabled={loading}
+                    >
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+)}
+
         </section>
     );
 }
