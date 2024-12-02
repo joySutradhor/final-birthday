@@ -16,6 +16,7 @@ import './dashboard.css';
 import Photo from './PhotoGallery/Photo';
 import { useNavigate } from 'react-router-dom';  
 import { AiOutlineGlobal } from "react-icons/ai";
+import Music from './Music/Page';
 
 
 const NAVIGATION = [
@@ -25,6 +26,7 @@ const NAVIGATION = [
   { segment: 'create-story', title: 'Create Story', icon: <BorderColorIcon /> },
   { segment: 'video-album', title: 'Video Album', icon: <OndemandVideoIcon /> },
   { segment: 'photo-gallery', title: 'Photo Gallery', icon: <AddToPhotosIcon /> },
+  { segment: 'upload-music', title: 'Upload Music', icon: <AddToPhotosIcon /> },
 ];
 
 const demoTheme = extendTheme({
@@ -54,6 +56,7 @@ export default function Dashboard(props) {
     '/create-story': <Story />,
     '/video-album': <VideoAlbum />,
     '/photo-gallery': <Photo />,
+    '/upload-music': <Music />,
   };
 
   // Default to "Page Not Found" if no route matches
