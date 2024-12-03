@@ -29,12 +29,12 @@ function CreateBanner() {
     // 1. Upload the image to Cloudinary
     const formData = new FormData();
     formData.append('file', imageFile);
-    formData.append('upload_preset', 'shahinvai'); 
+    formData.append('upload_preset', 'leaonBirthdayWebsite'); 
 
     try {
       // Send the request to Cloudinary
       const cloudinaryResponse = await axios.post(
-        'https://api.cloudinary.com/v1_1/joysutradhor/image/upload', 
+        'https://api.cloudinary.com/v1_1/leonschaefer/image/upload', 
         formData
       );
 
@@ -46,7 +46,7 @@ function CreateBanner() {
         img: imageUrl, 
       };
 
-      const response = await axios.post('https://birthday-gift-express.vercel.app/api/v1/slider/create', bannerData);
+      const response = await axios.post('https://birthday-gift-website.vercel.app/api/v1/slider/create', bannerData);
 
       if (response.status === 200) {
         console.log('Banner created successfully');

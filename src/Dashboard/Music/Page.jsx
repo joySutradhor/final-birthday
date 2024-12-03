@@ -15,7 +15,7 @@ function Music() {
     const fetchMusic = async () => {
       try {
         const response = await axios.get(
-          "https://birthday-gift-express.vercel.app/api/v1/music"
+          "https://birthday-gift-website.vercel.app/api/v1/music"
         );
         setMusicList(response?.data.data); // Assuming the API returns an array of music objects
       } catch (err) {
@@ -42,7 +42,7 @@ function Music() {
       if (result.isConfirmed) {
         try {
           await axios.delete(
-            `https://birthday-gift-express.vercel.app/api/v1/music/${id}`
+            `https://birthday-gift-website.vercel.app/api/v1/music/${id}`
           );
 
           // Update state to remove deleted music
@@ -82,13 +82,13 @@ function Music() {
 
     const formData = new FormData();
     formData.append("file", musicFile);
-    formData.append("upload_preset", "shahinvai"); // Replace with your Cloudinary preset
+    formData.append("upload_preset", "leaonBirthdayWebsite"); // Replace with your Cloudinary preset
     formData.append("resource_type", "raw"); // Ensures it's treated as a non-image resource
 
     try {
       // Upload to Cloudinary
       const cloudinaryResponse = await axios.post(
-        "https://api.cloudinary.com/v1_1/joysutradhor/raw/upload", // Replace with your endpoint
+        "https://api.cloudinary.com/v1_1/leonschaefer/raw/upload", // Replace with your endpoint
         formData
       );
 
@@ -102,7 +102,7 @@ function Music() {
 
       // Post to your backend API
       const response = await axios.post(
-        "https://birthday-gift-express.vercel.app/api/v1/music/create",
+        "https://birthday-gift-website.vercel.app/api/v1/music/create",
         musicData
       );
 

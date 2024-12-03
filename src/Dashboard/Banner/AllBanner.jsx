@@ -14,17 +14,17 @@ export default function AllBanner() {
     // Fetch slide data
     useEffect(() => {
         axios
-            .get("https://birthday-gift-express.vercel.app/api/v1/slider")
+            .get("https://birthday-gift-website.vercel.app/api/v1/slider")
             .then((response) => setImages(response.data.data))
             .catch((error) => console.error("Error fetching slides:", error));
     }, []);
 
     // Cloudinary upload function
     const uploadToCloudinary = async (file) => {
-        const cloudinaryUrl = "https://api.cloudinary.com/v1_1/joysutradhor/image/upload";
+        const cloudinaryUrl = "https://api.cloudinary.com/v1_1/leonschaefer/image/upload";
         const formData = new FormData();
         formData.append("file", file);
-        formData.append("upload_preset", "shahinvai");
+        formData.append("upload_preset", "leaonBirthdayWebsite");
 
         try {
             const response = await axios.post(cloudinaryUrl, formData);
@@ -74,7 +74,7 @@ export default function AllBanner() {
 
     const deleteBanner = async (id) => {
         try {
-            await axios.delete(`https://birthday-gift-express.vercel.app/api/v1/slider/${id}`);
+            await axios.delete(`https://birthday-gift-website.vercel.app/api/v1/slider/${id}`);
             setImages((prevImages) => prevImages.filter((img) => img.id !== id));
             Swal.fire("Deleted!", "Your banner has been deleted.", "success");
         } catch (error) {
@@ -124,7 +124,7 @@ export default function AllBanner() {
             }
 
             const response = await axios.patch(
-                `https://birthday-gift-express.vercel.app/api/v1/slider/${selectedImage.id}`,
+                `https://birthday-gift-website.vercel.app/api/v1/slider/${selectedImage.id}`,
                 {
                     title: updatedTitle,
                     des: updatedDescription,

@@ -15,17 +15,17 @@ export default function AllPhoto() {
     // Fetch slide data
     useEffect(() => {
         axios
-            .get("https://birthday-gift-express.vercel.app/api/v1/gallery")
+            .get("https://birthday-gift-website.vercel.app/api/v1/gallery")
             .then((response) => setImages(response.data.data))
             .catch((error) => console.error("Error fetching slides:", error));
     }, []);
 
     // Cloudinary upload function for both images and videos
     const uploadToCloudinary = async (file, type = "image") => {
-        const cloudinaryUrl = `https://api.cloudinary.com/v1_1/joysutradhor/${type}/upload`;
+        const cloudinaryUrl = `https://api.cloudinary.com/v1_1/leonschaefer/${type}/upload`;
         const formData = new FormData();
         formData.append("file", file);
-        formData.append("upload_preset", "shahinvai");
+        formData.append("upload_preset", "leaonBirthdayWebsite");
 
         try {
             const response = await axios.post(cloudinaryUrl, formData);
@@ -64,7 +64,7 @@ export default function AllPhoto() {
 
     const deleteBanner = async (id) => {
         try {
-            await axios.delete(`https://birthday-gift-express.vercel.app/api/v1/gallery/${id}`);
+            await axios.delete(`https://birthday-gift-website.vercel.app/api/v1/gallery/${id}`);
             setImages((prevImages) => prevImages.filter((img) => img.id !== id));
             Swal.fire("Deleted!", "Your banner has been deleted.", "success");
             setLoading(false);
@@ -131,7 +131,7 @@ export default function AllPhoto() {
 
             console.log("Sending data to API:", { title: updatedTitle, img: imageUrl, url: videoUrl });
             const response = await axios.patch(
-                `https://birthday-gift-express.vercel.app/api/v1/gallery/${selectedImage.id}`,
+                `https://birthday-gift-website.vercel.app/api/v1/gallery/${selectedImage.id}`,
                 {
                     title: updatedTitle,
                     img: imageUrl,

@@ -11,7 +11,7 @@ export default function Gallery() {
 
     // Fetch gallery data
     useEffect(() => {
-        fetch('https://birthday-gift-express.vercel.app/api/v1/gallery')
+        fetch('https://birthday-gift-website.vercel.app/api/v1/gallery')
             .then((response) => response.json())
             .then((data) => setImages(data.data))
             .catch((error) => console.error('Error fetching slides:', error));
