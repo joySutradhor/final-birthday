@@ -17,7 +17,7 @@ function AllStory() {
     const fetchStories = async () => {
       try {
         const response = await axios.get(
-          "https://birthday-gift-website.vercel.app/api/v1/storey"
+          "https://birthday-gift-web.vercel.app/api/v1/storey"
         );
         setStories(response.data.data);
       } catch (error) {
@@ -42,7 +42,7 @@ function AllStory() {
       if (result.isConfirmed) {
         try {
           await axios.delete(
-            `https://birthday-gift-website.vercel.app/api/v1/storey/${id}`
+            `https://birthday-gift-web.vercel.app/api/v1/storey/${id}`
           );
           setStories((prevStories) =>
             prevStories.filter((story) => story.id !== id)
@@ -67,7 +67,7 @@ function AllStory() {
   const updateStory = async () => {
     try {
       await axios.patch(
-        `https://birthday-gift-website.vercel.app/api/v1/storey/${currentStory.id}`,
+        `https://birthday-gift-web.vercel.app/api/v1/storey/${currentStory.id}`,
         { title: updatedTitle, des: updatedDescription }
       );
       setStories((prevStories) =>

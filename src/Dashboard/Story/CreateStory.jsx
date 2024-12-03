@@ -46,7 +46,7 @@ function CreateStory() {
 
                 try {
                     // Simulate an API request (replace with your actual API call)
-                    const response = await axios.post('https://birthday-gift-website.vercel.app/api/v1/storey/create', data);
+                    const response = await axios.post('https://birthday-gift-web.vercel.app/api/v1/storey/create', data);
                     console.log('Story Created:', response.data);
 
                     // Hide the loading Swal and show success message

@@ -13,7 +13,7 @@ const SingleStory = () => {
   useEffect(() => {
     const fetchStory = async () => {
       try {
-        const response = await fetch(`https://birthday-gift-website.vercel.app/api/v1/storey/${id}`);
+        const response = await fetch(`https://birthday-gift-web.vercel.app/api/v1/storey/${id}`);
         const data = await response.json();
         console.log(data)
         setStory(data.data);

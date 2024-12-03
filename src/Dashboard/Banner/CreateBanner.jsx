@@ -46,7 +46,7 @@ function CreateBanner() {
         img: imageUrl, 
       };
 
-      const response = await axios.post('https://birthday-gift-website.vercel.app/api/v1/slider/create', bannerData);
+      const response = await axios.post('https://birthday-gift-web.vercel.app/api/v1/slider/create', bannerData);
 
       if (response.status === 200) {
         console.log('Banner created successfully');

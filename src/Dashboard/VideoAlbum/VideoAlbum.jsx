@@ -11,7 +11,7 @@ function VideoAlbum() {
     // Fetch all videos
     const fetchVideos = async () => {
         try {
-            const response = await axios.get('https://birthday-gift-website.vercel.app/api/v1/video');
+            const response = await axios.get('https://birthday-gift-web.vercel.app/api/v1/video');
             setVideos(response?.data?.data);
 
         } catch (error) {
@@ -31,7 +31,7 @@ function VideoAlbum() {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    await axios.delete(`https://birthday-gift-website.vercel.app/api/v1/video/${id}`);
+                    await axios.delete(`https://birthday-gift-web.vercel.app/api/v1/video/${id}`);
                     Swal.fire('Deleted!', 'The video has been deleted.', 'success');
                     // Refresh the video list after deletion
                     fetchVideos();
@@ -68,7 +68,7 @@ function VideoAlbum() {
                 });
 
                 try {
-                    await axios.post('https://birthday-gift-website.vercel.app/api/v1/video/create', videoData);
+                    await axios.post('https://birthday-gift-web.vercel.app/api/v1/video/create', videoData);
 
                     loadingSwal.close();
                     Swal.fire('Success!', 'Your video link has been uploaded successfully.', 'success');

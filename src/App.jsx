@@ -24,7 +24,7 @@ function App() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://birthday-gift-website.vercel.app/api/v1/music"
+          "https://birthday-gift-web.vercel.app/api/v1/music"
         );
         setMusicData(response?.data.data || []);
       } catch (err) {
