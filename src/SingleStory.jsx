@@ -39,10 +39,10 @@ const SingleStory = () => {
   }
 
   return (
-    <div>
+    <div className='bg-gradient-to-tr from-[#1F2A3E] via-[#3A424D] to-[#EFE1BE]  min-h-screen '>
       <StoryHeader />
       {story ? (
-        <div className='bg-gradient-to-tr from-[#1F2A3E] via-[#3A424D] to-[#EFE1BE] h-[100vh] overflow-auto  '>
+        <div className=' '>
           <div className=' mt-[20%] xl:mt-[10%] px-5 md:px-10   '>
             <div className='space-y-5 border p-5 md:p-10 border-black/10 '>
               <h1 className="heading">{story.title}</h1>
