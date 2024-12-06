@@ -39,10 +39,10 @@ function StoryHeader() {
                 {/* Center Column: Title */}
                 <div className='col-span-10 flex justify-center items-center'>
                     <Link smooth to="/">
-                        <div className='flex items-center'>
-                            <h1 className='main__heading '> Happy Birthday Dear
-                            </h1>
-                            <img className='lg:size-20 size-10 ' src={gift} alt="" srcset="" />
+                        <div className='flex items-center py-3'>
+                        <h1 className='main__heading flex items-center gap-2 group'><span className='group-hover:text-red-400 duration-500 ease-in-out transition-colors animate-pulse' > ❤ </span>  Maren & Leon <span className='group-hover:text-red-400 duration-500 ease-in-out transition-colors animate-pulse'> ❤ </span>
+                        </h1>
+                            {/* <img className='lg:size-20 size-10 ' src={gift} alt="" srcset="" /> */}
                         </div>
                     </Link>
                 </div>
