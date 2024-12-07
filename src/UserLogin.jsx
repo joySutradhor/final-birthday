@@ -1,21 +1,24 @@
-import { useState } from 'react';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../AuthContext';
 import Swal from 'sweetalert2';
 
-function Login() {
-  const dummyUser = {
-    email: 'valulizer',
-    password: 'WillYouMarryMe',
-  };
 
-  const { login } = useAuth();
+function UserLogin() {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [email, setEmail] = useState('');
+  const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [err, setErr] = useState(false);
   const navigate = useNavigate();
+
+  const isLoggedIn = !!localStorage.getItem('rootToken'); 
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate('/root-page', { replace: true });
+    }
+  }, [isLoggedIn, navigate]);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible((prevState) => !prevState);
@@ -24,40 +27,54 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (email === dummyUser.email && password === dummyUser.password) {
-      setError('');
-      login(); // Authenticate user
-      Swal.fire({
-        icon: 'success',
-        title: 'Login Successful!',
-        text: 'Welcome to your dashboard!',
-        confirmButtonText: 'Go to Dashboard',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          navigate('/dashboardWebsite'); // Redirect to dashboard
-        }
-      });
-    } else {
-      setError('Invalid email or password. Please try again.');
-    }
+    const payload = {
+      email: userName,
+      password: password,
+    };
+
+    Swal.fire({
+      title: 'Do You Want to Login?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#374151',
+      confirmButtonText: 'Yes, Login!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post('https://api.escuelajs.co/api/v1/auth/login', payload)
+          .then((res) => {
+            localStorage.setItem('rootToken', JSON.stringify(res.data.access_token));
+            Swal.fire({
+              title: 'Login Successful!',
+              text: 'You are now authorized.',
+              icon: 'success',
+            });
+            navigate('/root-page');
+          })
+          .catch(() => {
+            setErr('Login Failed. Check Credentials.');
+          });
+      }
+    });
   };
 
   return (
     <section className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-sm shadow-lg w-full max-w-md">
-        <h2 className="text-2xl font-bold text-center mb-6 text-gray-700">Secret Login</h2>
+        <h2 className="text-2xl font-bold text-center mb-6 text-gray-700">Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="email" className="block text-sm font-medium text-gray-600 mb-2">
-              Your Name
+              Username
             </label>
             <input
               type="text"
-              id="email"
+              id="userName"
               className="w-full px-4 py-2 border rounded-sm focus:outline-none"
-              placeholder="Enter your name"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your username"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
               required
             />
           </div>
@@ -81,9 +98,9 @@ function Login() {
               {passwordVisible ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
             </span>
           </div>
-          {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+          {err && <p className="text-red-500 text-sm mb-4">{err}</p>}
           <button type="submit" className="w-full bg-gray-700 text-white py-2 rounded-sm">
-            Login Here
+            Login
           </button>
         </form>
       </div>
@@ -91,4 +108,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default UserLogin;

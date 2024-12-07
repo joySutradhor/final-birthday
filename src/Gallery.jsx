@@ -36,6 +36,8 @@ export default function Gallery() {
         return animations[randomIndex];
     };
 
+    console.log(images)
+
     return (
         <section className="sectionSpace" id="gallery">
             <h2 className="heading">Our Happy Moments</h2>

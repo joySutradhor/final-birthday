@@ -23,6 +23,8 @@ function PhotoGallery() {
     }
   };
 
+ 
+
   const handleVideoUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -62,6 +64,7 @@ function PhotoGallery() {
         );
 
         const imageUrl = cloudinaryImageResponse.data.secure_url;
+        console.log(imageUrl)
 
         // Upload video to Cloudinary
         const videoFormData = new FormData();
@@ -134,7 +137,7 @@ function PhotoGallery() {
             )}
             <input
               type="file"
-              accept="image/*"
+              accept="image/*,.heic"
               onChange={handleImageUpload}
               className="absolute inset-0 opacity-0 cursor-pointer"
             />

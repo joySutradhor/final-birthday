@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { FaHome, FaBookOpen, FaImages, FaFilm } from 'react-icons/fa';
-import { FaLongArrowAltRight } from "react-icons/fa";
+import { FaHome, FaImages, FaFilm } from 'react-icons/fa';
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import { RiCloseLargeLine } from "react-icons/ri";
 import { HashLink as Link } from 'react-router-hash-link';
-import gift from "/gift.gif"
+import { LuDot } from "react-icons/lu";
+
 import { FaSignInAlt } from "react-icons/fa";
 
 function Header() {
@@ -23,7 +23,7 @@ function Header() {
     };
     return (
 
-        <div className='bg-gradient-to-tr from-[#1F2A3E] to-[#3A424D] z-50  opacity-95 w-full z-50 sticky top-0'>
+        <div className='bg-gradient-to-tr from-[#1F2A3E] to-[#3A424D] z-50  opacity-95 w-full  sticky top-0'>
             <div className='grid grid-cols-12 px-5 lg:px-16 items-center py-2 md:py-4 xl:py-1 w-full'>
                 {/* Left Column: Menu Icon */}
                 <div className='col-span-1 flex justify-start'>
@@ -53,7 +53,7 @@ function Header() {
 
             {/* Sliding Menu */}
             <div
-                className={`absolute top-0 left-0 bg-gradient-to-tr from-[#1F2A3E] via-[#3A424D] to-[#EFE1BE] transition-transform duration-300 h-[100dvh] overflow-auto overflow-x-hidden p-4 md:p-8 w-[80vw] sm:w-[80vw] md:w-[50vw] lg:w-[35vw] xl:w-[20vw] ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
+                className={`absolute top-0 left-0 bg-gradient-to-tr from-[#1F2A3E] via-[#3A424D] to-[#EFE1BE] transition-transform duration-300 h-[100dvh] overflow-auto overflow-x-hidden p-4 md:p-8 w-[90vw] sm:w-[80vw] md:w-[50vw] lg:w-[35vw] xl:w-[28vw] 2xl:w-[20vw] ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
             >
                 <div className='flex justify-end'>
                     {/* Close Icon */}
@@ -79,12 +79,12 @@ function Header() {
 
                     {
                         story?.map((data, index) => (
-                            <Link key={index} onClick={handleLinkClick} to={`/story/${data._id}`} className='truncate max-w-xs menuItem flex gap-2 items-center'><span><FaLongArrowAltRight /></span> {data.title}</Link>
+                            <Link key={index} onClick={handleLinkClick} to={`/story/${data._id}`} className='truncate max-w-xs menuItem flex gap-2 items-center'><span><LuDot className='text-3xl' /></span> {data.title}</Link>
                         ))
                     }
 
                     {/* Button to go to the login page (Dashboard Link) */}
-                    <Link to="/login" className="menuItem pt-10">
+                    <Link to="/dashboard" className="menuItem pt-10">
                         <FaSignInAlt className="mr-2 inline" />
                         Dashboard
                     </Link>

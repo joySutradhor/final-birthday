@@ -16,12 +16,12 @@ function Videos() {
             <p className='para pt-5 lg:w-1/3 pb-10'>Our events celebrate love and creativity, offering unforgettable experiences that inspire connection and joy in every moment</p>
 
             {/* Videos link here */}
-            <div className='grid lg:grid-cols-3 gap-5'>
+            <div className=' '>
                 {videos && videos.length > 0 ? (
                     videos.map((video, index) => (
                         <div key={index}>
                             <iframe
-                                className='lg:w-[28vw] lg:h-[40vh] w-full h-[30vh]'
+                                className='w-full h-[50vh] xl:h-[80vh] mb-10'
                                 src={video?.url.replace("watch?v=", "embed/")}
                                 frameBorder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

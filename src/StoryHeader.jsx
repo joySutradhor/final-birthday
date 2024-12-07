@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { FaHome, FaBookOpen, FaImages, FaFilm } from 'react-icons/fa';
-import { FaLongArrowAltRight } from "react-icons/fa";
+import { FaHome,  FaImages, FaFilm } from 'react-icons/fa';
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import { RiCloseLargeLine } from "react-icons/ri";
 import { HashLink as Link } from 'react-router-hash-link';
-import gift from "/gift.gif"
 import { FaSignInAlt } from "react-icons/fa";
+import { LuDot } from 'react-icons/lu';
 
 function StoryHeader() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -53,7 +52,7 @@ function StoryHeader() {
 
             {/* Sliding Menu */}
             <div
-                className={`absolute top-0 left-0 bg-gradient-to-tr from-[#1F2A3E] via-[#3A424D] to-[#EFE1BE] transition-transform duration-300 h-[100dvh] overflow-auto overflow-x-hidden p-4 md:p-8 w-[80vw] sm:w-[80vw] md:w-[50vw] lg:w-[35vw] xl:w-[20vw] ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
+                className={`absolute top-0 left-0 bg-gradient-to-tr from-[#1F2A3E] via-[#3A424D] to-[#EFE1BE] transition-transform duration-300 h-[100dvh] overflow-auto overflow-x-hidden p-4 md:p-8 w-[90vw] sm:w-[80vw] md:w-[50vw] lg:w-[35vw] xl:w-[28vw] 2xl:w-[20vw] ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
             >
                 <div className='flex justify-end'>
                     {/* Close Icon */}
@@ -78,12 +77,12 @@ function StoryHeader() {
 
                     {
                         story?.map((data, index) => (
-                            <Link key={index} onClick={handleLinkClick} to={`/story/${data._id}`} className='truncate max-w-xs menuItem flex gap-2 items-center'><span><FaLongArrowAltRight /></span> {data.title}</Link>
+                            <Link key={index} onClick={handleLinkClick} to={`/story/${data._id}`} className='truncate max-w-xs menuItem flex gap-2 items-center'><span><LuDot className='text-3xl' /></span> {data.title}</Link>
                         ))
                     }
 
                     {/* Button to go to the login page (Dashboard Link) */}
-                    <Link to="/login" className="menuItem pt-10">
+                    <Link to="/dashboard" className="menuItem pt-10">
                         <FaSignInAlt className="mr-2 inline" />
                         Dashboard
                     </Link>

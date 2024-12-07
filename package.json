@@ -15,7 +15,7 @@
     "@mui/icons-material": "^6.1.8",
     "@mui/material": "^6.1.8",
     "@toolpad/core": "^0.10.0",
-    "axios": "^1.7.8",
+    "axios": "^1.7.9",
     "emojis-list": "^3.0.0",
     "localforage": "^1.10.0",
     "match-sorter": "^8.0.0",
