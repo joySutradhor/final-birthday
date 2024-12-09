@@ -49,7 +49,7 @@ function App() {
     <>
       <section
         className="bg-gradient-to-tr from-[#1F2A3E] via-[#3A424D] to-[#EFE1BE]"
-        onMouseEnter={handleHover} 
+        onMouseDownCapture={handleHover} 
       >
         <div>
           <audio
