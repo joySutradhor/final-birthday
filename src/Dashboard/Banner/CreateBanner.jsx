@@ -1,99 +1,132 @@
+import axios from 'axios';
 import React, { useState } from 'react';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import axios from 'axios'; // Import Axios for HTTP requests
+import { IoCloseSharp } from "react-icons/io5";
 
 function CreateBanner() {
-  const [imagePreview, setImagePreview] = useState(null);
+  const [imageUrls, setImageUrls] = useState("");
   const [title, setTitle] = useState('');
   const [shortDescription, setShortDescription] = useState('');
-  const [imageFile, setImageFile] = useState(null);
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setImagePreview(reader.result);
-      };
-      reader.readAsDataURL(file);
-      setImageFile(file); 
-    }
+
+  const handleUpload = () => {
+    window.cloudinary.openUploadWidget(
+      {
+        cloudName: 'leonschaefer',
+        uploadPreset: 'leaonBirthdayWebsite',
+        sources: ['local', 'camera', 'url'],
+        cropping: false,
+        multiple: false,
+        resourceType: 'image',
+        clientAllowedFormats: ['webp', 'jpg', 'png', 'heic'],
+        transformation: [
+          {
+            fetch_format: 'auto',
+            quality: 'auto',
+          },
+        ],
+      },
+      (error, result) => {
+        if (error) {
+          console.error('Upload Error:', error);
+          return;
+        }
+
+        if (result.event === 'success') {
+          console.log('Uploaded URL:', result.info.secure_url);
+
+          const webpUrl = result.info.secure_url.replace(/(\/v\d+\/)(.*?)(\.(jpg|jpeg|png|heic|gif|bmp|tiff|svg))/i, '$1$2.webp');
+          setImageUrls(webpUrl)
+          console.log('WebP URL:', webpUrl);
+
+        }
+      }
+    );
   };
+
+  const handleDeleteImage = (index) => {
+    setImageUrls((prev) => prev.filter((_, idx) => idx !== index));
+  };
+
+
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-
-    setLoading(true); 
-
-    // 1. Upload the image to Cloudinary
-    const formData = new FormData();
-    formData.append('file', imageFile);
-    formData.append('upload_preset', 'leaonBirthdayWebsite'); 
+    setLoading(true);
 
     try {
-      // Send the request to Cloudinary
-      const cloudinaryResponse = await axios.post(
-        'https://api.cloudinary.com/v1_1/leonschaefer/image/upload', 
-        formData
-      );
-
-      const imageUrl = cloudinaryResponse.data.secure_url; 
-
       const bannerData = {
         title,
         des: shortDescription,
-        img: imageUrl, 
+        img: imageUrls,
       };
 
-      const response = await axios.post('https://birthday-gift-web.vercel.app/api/v1/slider/create', bannerData);
+      // Post data to your API
+      const response = await axios.post(
+        'https://birthday-gift-web.vercel.app/api/v1/slider/create',
+        bannerData
+      );
 
       if (response.status === 200) {
         console.log('Banner created successfully');
-        
-        // Clear form after submission
         setTitle('');
         setShortDescription('');
-        setImagePreview(null);
-        setImageFile(null);
+        setImageUrls("");
       }
     } catch (error) {
-      console.error('Error uploading image or posting data:', error);
-      alert(error.message)
+      console.error('Error submitting Banner:', error);
+      alert('Error: ' + error.message); // Alert on error
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
+  };
+
+
+  // handle text area 
+
+
+  const handleInputChange = (e) => {
+    setShortDescription(e.target.value);
+
+    // Auto-expand the textarea height based on its scrollHeight
+    const textarea = e.target;
+    textarea.style.height = 'auto';
+    textarea.style.height = `${textarea.scrollHeight}px`;
   };
 
   return (
     <section className="mt-10">
-      <p className="d__des mb-3">Create Your Amazing Banner Slider </p>
-      <div className="border grid lg:grid-cols-2 items-center lg:justify-center p-5 md:p-10 gap-10">
+      <p className="d__des mb-3">Create Your Amazing Banner here</p>
+      <div className="border p-5 lg:p-10 space-y-5 grid lg:grid-cols-2 gap-10">
         {/* Image Upload Box */}
-        <div
-          className={`relative p-10 h-56 w-full flex items-center justify-center ${
-            imagePreview ? 'border-[1px] border-dotted' : 'border-[1px] border-dotted rounded-sm'
-          }`}
-        >
-          {imagePreview ? (
-            <img
-              src={imagePreview}
-              alt="Uploaded Preview"
-              className="absolute inset-0 w-full h-full object-cover rounded-md p-1"
-            />
-          ) : (
-            <div className="flex flex-col items-center justify-center">
-              <CloudUploadIcon fontSize="large" className="text-gray-700 mb-2" />
-              <h3 className="text-lg font-semibold text-gray-700">Upload Slider Banner</h3>
-              <p className="text-sm text-gray-500">Click to upload</p>
+        <div className="relative min-h-56 w-full flex items-center justify-center border-[1px] border-dotted rounded-sm">
+          {imageUrls? (
+            <div>
+              <div className="relative">
+                <img
+                  src={imageUrls}
+                  alt={`Uploaded Image`}
+                  loading="lazy"
+                  className="w-full h-52 object-cover rounded-md p-1"
+                />
+                <button
+                  onClick={() => handleDeleteImage(index)}
+                  className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1"
+                >
+                  <span><IoCloseSharp /></span>
+                </button>
+              </div>
+
+
             </div>
+          ) : (
+            <button
+              onClick={handleUpload}
+              className="bg-gray-700 text-white py-2 px-4 rounded"
+            >
+              Upload Images
+            </button>
           )}
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageUpload}
-            className="absolute inset-0 opacity-0 cursor-pointer"
-          />
         </div>
 
         {/* Form */}
@@ -126,7 +159,7 @@ function CreateBanner() {
                 className="w-full px-4 py-2 border rounded-sm focus:outline-none resize-none"
                 rows="4"
                 value={shortDescription}
-                onChange={(e) => setShortDescription(e.target.value)}
+                onChange={handleInputChange}
                 required
               ></textarea>
             </div>
@@ -135,9 +168,9 @@ function CreateBanner() {
           <button
             type="submit"
             className="w-full bg-gray-700 text-white py-2 rounded-sm mt-6"
-            disabled={loading} 
+            disabled={loading}
           >
-            {loading ? 'Submiting...' : 'Submit'} 
+            {loading ? 'Submitting...' : 'Submit'}
           </button>
         </form>
       </div>

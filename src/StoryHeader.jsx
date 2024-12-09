@@ -4,7 +4,7 @@ import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import { RiCloseLargeLine } from "react-icons/ri";
 import { HashLink as Link } from 'react-router-hash-link';
 import { FaSignInAlt } from "react-icons/fa";
-import { LuDot } from 'react-icons/lu';
+import { RiQuillPenAiLine } from "react-icons/ri";
 
 function StoryHeader() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -72,12 +72,12 @@ function StoryHeader() {
                     </Link>
                     <Link smooth to="/#videos" onClick={handleLinkClick} className="menuItem">
                         <FaFilm className="mr-2 inline" />
-                        Video Frame
+                        Video Events
                     </Link>
 
                     {
                         story?.map((data, index) => (
-                            <Link key={index} onClick={handleLinkClick} to={`/story/${data._id}`} className='truncate max-w-xs menuItem flex gap-2 items-center'><span><LuDot className='text-3xl' /></span> {data.title}</Link>
+                            <Link key={index} onClick={handleLinkClick} to={`/story/${data._id}`} className=' menuItem flex gap-2 items-start'><span><RiQuillPenAiLine className='text-2xl mt-2' /></span> {data.title}</Link>
                         ))
                     }
 

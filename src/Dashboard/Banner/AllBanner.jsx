@@ -19,6 +19,7 @@ export default function AllBanner() {
             .catch((error) => console.error("Error fetching slides:", error));
     }, []);
 
+    console.log(images)
     // Cloudinary upload function
     const uploadToCloudinary = async (file) => {
         const cloudinaryUrl = "https://api.cloudinary.com/v1_1/leonschaefer/image/upload";
@@ -28,7 +29,8 @@ export default function AllBanner() {
 
         try {
             const response = await axios.post(cloudinaryUrl, formData);
-            return response.data.secure_url; // Get the uploaded image URL
+            return response.data.secure_url.replace(/(\/v\d+\/)(.*?)(\.(jpg|jpeg|png|heic|gif|bmp|tiff|svg))/i, '$1$2.webp');
+           
         } catch (error) {
             console.error("Error uploading image to Cloudinary:", error);
             throw error;
@@ -217,15 +219,6 @@ export default function AllBanner() {
                                     className="w-full px-4 py-2 border rounded-sm focus:outline-none"
                                 />
                             </div>
-                            {newImage && (
-                                <div className="mb-4">
-                                    <img
-                                        src={newImage}
-                                        alt="New Preview"
-                                        className="w-full h-40 object-cover rounded-md"
-                                    />
-                                </div>
-                            )}
                             <div className="mb-4">
                                 <label
                                     htmlFor="title"

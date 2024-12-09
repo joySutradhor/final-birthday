@@ -31,6 +31,7 @@ function UserLogin() {
       email: userName,
       password: password,
     };
+    console.log(payload)
 
     Swal.fire({
       title: 'Do You Want to Login?',
@@ -42,7 +43,7 @@ function UserLogin() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .post('https://api.escuelajs.co/api/v1/auth/login', payload)
+          .post('https://birthday-gift-web.vercel.app/api/v1/auth/login', payload)
           .then((res) => {
             localStorage.setItem('rootToken', JSON.stringify(res.data.access_token));
             Swal.fire({
@@ -69,7 +70,7 @@ function UserLogin() {
               Username
             </label>
             <input
-              type="text"
+              type="email"
               id="userName"
               className="w-full px-4 py-2 border rounded-sm focus:outline-none"
               placeholder="Enter your username"

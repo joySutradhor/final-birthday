@@ -1,12 +1,18 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import StoryHeader from './StoryHeader';
+import { Box } from '@mui/material';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import { Fade, Zoom } from 'react-awesome-reveal';
 
 const SingleStory = () => {
   const { id } = useParams();
   const [story, setStory] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
+    const [currentMedia, setCurrentMedia] = useState(null);
   console.log(id)
 
   // Fetch story data from the API based on the id
@@ -27,6 +33,27 @@ const SingleStory = () => {
     fetchStory();
   }, [id]);
 
+console.log(story)
+
+    //  Function to open the modal with the clicked image/video
+    const openMedia = (media) => {
+        setCurrentMedia(media);
+        setOpenModal(true);
+    };
+
+    // Function to close the modal
+    const closeModal = () => {
+        setOpenModal(false);
+        setCurrentMedia(null);
+    };
+
+    // Function to get random animation
+    const getRandomAnimation = () => {
+        const animations = ['fade', 'zoom', 'fadeLeft', 'fadeRight'];
+        const randomIndex = Math.floor(Math.random() * animations.length);
+        return animations[randomIndex];
+    };
+
   // Render the loading, error, or story data
   if (loading) {
     return <div>
@@ -38,13 +65,116 @@ const SingleStory = () => {
     return <p>{error}</p>;
   }
 
+  console.log(currentMedia)
+
   return (
-    <div className='bg-gradient-to-tr from-[#1F2A3E] via-[#3A424D] to-[#EFE1BE]  min-h-screen '>
+    <div className='bg-gradient-to-tr from-[#1F2A3E] via-[#3A424D] to-[#EFE1BE]  min-h-screen group '>
       <StoryHeader />
       {story ? (
         <div className=' '>
-          <div className=' mt-[20%] xl:mt-[10%] px-5 md:px-10   '>
-            <div className='space-y-5 border p-5 md:p-10 border-black/10 '>
+          <div className=' mt-[20%] xl:mt-[2%] px-5 md:px-20   '>
+            <div className='grid grid-cols-3 '>
+            <div >
+                <Box sx={{ width: '85vw', overflow: 'clip' }}>
+                    <ImageList variant="masonry" cols={3} gap={8}>
+                        {story?.images.map((item, index) => (
+                            <ImageListItem key={item.id} onClick={() => openMedia(item)} >
+                                <div className="image-container relative w-full h-auto group overflow-x-hidden hover:animate-pulse animate-pulse-1 transition-all ease-in-out duration-500">
+                                    {/* Random Animation for Image */}
+                                    {getRandomAnimation() === 'zoom' ? (
+                                        <Zoom>
+                                            <img
+                                                srcSet={`${item}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                                src={`${item}?w=248&fit=crop&auto=format`}
+                                                alt={item.title}
+                                                loading="lazy"
+                                                className='rounded-tl-2xl rounded-br-2xl hover:animate-pulse duration-300'
+                                                style={{
+                                                    width: '100%',
+                                                    height: 'auto',
+                                                    objectFit: 'cover',
+                                                    transition: 'opacity 0.3s',
+                                                }}
+                                            />
+                                        </Zoom>
+                                    ) : getRandomAnimation() === 'fadeLeft' ? (
+                                        <Fade direction="left">
+                                            <img
+                                                srcSet={`${item}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                                src={`${item}?w=248&fit=crop&auto=format`}
+                                                alt={item.title}
+                                                loading="lazy"
+                                                className='rounded-tl-2xl rounded-br-2xl hover:animate-pulse duration-300'
+                                                style={{
+                                                    width: '100%',
+                                                    height: 'auto',
+                                                    objectFit: 'cover',
+                                                    transition: 'opacity 0.3s',
+                                                }}
+                                            />
+                                        </Fade>
+                                    ) : getRandomAnimation() === 'fadeRight' ? (
+                                        <Fade direction="right">
+                                            <img
+                                                srcSet={`${item}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                                src={`${item}?w=248&fit=crop&auto=format`}
+                                                alt={item.title}
+                                                loading="lazy"
+                                                className='rounded-tl-2xl rounded-br-2xl hover:animate-pulse duration-300'
+                                                style={{
+                                                    width: '100%',
+                                                    height: 'auto',
+                                                    objectFit: 'cover',
+                                                    transition: 'opacity 0.3s',
+                                                }}
+                                            />
+                                        </Fade>
+                                    ) : (
+                                        <Fade direction='left'>
+                                            <img
+                                                srcSet={`${item}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                                src={`${item}?w=248&fit=crop&auto=format`}
+                                                alt={item.title}
+                                                loading="lazy"
+                                                className='rounded-tl-2xl rounded-br-2xl hover:animate-pulse duration-300'
+                                                style={{
+                                                    width: '100%',
+                                                    height: 'auto',
+                                                    objectFit: 'cover',
+                                                    transition: 'opacity 0.3s',
+                                                }}
+                                            />
+                                        </Fade>
+                                    )}
+                                </div>
+                            </ImageListItem>
+                        ))}
+                    </ImageList>
+                </Box>
+            </div>
+
+            {openModal && (
+                <div
+                    className="fixed inset-0 bg-black  flex justify-center items-center z-50"
+                    onClick={closeModal} 
+                >
+                    <div
+                        className="rounded-lg p-4 relative max-w-3xl w-full flex justify-center items-center "
+                        onClick={(e) => e.stopPropagation()} 
+                    >
+                        {currentMedia ? (
+                            <img
+                                src={currentMedia}
+                                
+                                className="lg:w-full w-[60vw] lg:h-[80vh] h-auto object-cover rounded-tl-2xl rounded-br-2xl hover:animate-pulse duration-300"
+                            />
+                        ) : ""}
+                    </div>
+                </div>
+            )}
+              
+            </div>
+            <div className='space-y-5 py-10 lg:py-20 '>
               <h1 className="heading">{story.title}</h1>
               <p className="para leading-5"
                 style={{
@@ -63,3 +193,4 @@ const SingleStory = () => {
 };
 
 export default SingleStory;
+
