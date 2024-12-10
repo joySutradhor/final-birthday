@@ -1,7 +1,22 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
 function Videos() {
     const [videos, setVideos] = useState([]);
+    const [videoTtile , setVideoTitle] = useState("")
+    const [videoDes , setVideoDes] = useState("")
+
+    
+  useEffect(() => {
+    axios
+      .get('https://birthday-gift-web.vercel.app/api/v1/event')
+      .then((response) => {
+        const fetchedEvent = response.data.data[0];
+        setVideoTitle(fetchedEvent?.title || '')
+        setVideoDes(fetchedEvent?.des || '')
+      })
+      .catch((error) => console.error('Error fetching events:', error));
+  }, []);
 
     // Fetch slide data
     useEffect(() => {
@@ -12,8 +27,8 @@ function Videos() {
     }, []);
     return (
         <section className='sectionSpace pb-16 lg:pb-32' id='videos'>
-            <h2 className='heading'>Our events</h2>
-            <p className='para pt-5 lg:w-1/3 pb-10'>Our events celebrate love and creativity, offering unforgettable experiences that inspire connection and joy in every moment</p>
+            <h2 className='heading'>{videoTtile}</h2>
+            <p className='para pt-5 lg:w-1/3 pb-10'>{videoDes}</p>
 
             {/* Videos link here */}
             <div className=' '>

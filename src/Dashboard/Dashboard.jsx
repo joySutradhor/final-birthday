@@ -17,6 +17,12 @@ import Photo from './PhotoGallery/Photo';
 import { useNavigate } from 'react-router-dom';  
 import { AiOutlineGlobal } from "react-icons/ai";
 import Music from './Music/Page';
+import { FaMusic } from "react-icons/fa";
+import Moment from './Moment/Moment';
+import { FaRegSmileBeam } from "react-icons/fa";
+import Event from './Event/Event';
+
+
 
 
 
@@ -28,7 +34,9 @@ const NAVIGATION = [
   { segment: 'create-story', title: 'Create Story', icon: <BorderColorIcon /> },
   { segment: 'video-album', title: 'Video Album', icon: <OndemandVideoIcon /> },
   { segment: 'photo-gallery', title: 'Photo Gallery', icon: <AddToPhotosIcon /> },
-  { segment: 'upload-music', title: 'Upload Music', icon: <AddToPhotosIcon /> },
+  { segment: 'upload-music', title: 'Upload Music', icon: <FaMusic /> },
+  { segment: 'upload-moment', title: 'Upload Happy Moment', icon: <FaRegSmileBeam /> },
+  { segment: 'upload-event', title: 'Upload Event', icon: <FaRegSmileBeam /> },
 ];
 
 const demoTheme = extendTheme({
@@ -59,6 +67,8 @@ export default function Dashboard(props) {
     '/video-album': <VideoAlbum />,
     '/photo-gallery': <Photo />,
     '/upload-music': <Music />,
+    '/upload-moment': <Moment />,
+    '/upload-event': <Event />,
   };
 
   // Default to "Page Not Found" if no route matches

@@ -3,11 +3,30 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import Box from '@mui/material/Box';
 import { Fade, Zoom } from 'react-awesome-reveal'; // Import Zoom for zoom effect
+import axios from 'axios';
 
 export default function Gallery() {
     const [images, setImages] = useState([]);
     const [openModal, setOpenModal] = useState(false);
     const [currentMedia, setCurrentMedia] = useState(null);
+    const [momentId, setMomentId] = useState(null); 
+    const [galleryTitle , setGalleryTitle] = useState("") ;
+    const [galleryDes , setGalleryDes] = useState("") ;
+
+
+    useEffect(() => {
+        axios
+          .get('https://birthday-gift-web.vercel.app/api/v1/title')
+          .then((response) => {
+            const fetchedMoment = response.data.data[0];
+            setMomentId(fetchedMoment?._id); // Save the ID
+            setGalleryTitle(fetchedMoment?.title || '')
+            setGalleryDes(fetchedMoment?.des || '')
+
+          })
+          .catch((error) => console.error('Error fetching moments:', error));
+      }, []);
+
 
     // Fetch gallery data
     useEffect(() => {
@@ -40,9 +59,9 @@ export default function Gallery() {
 
     return (
         <section className="sectionSpace" id="gallery">
-            <h2 className="heading">Our Happy Moments</h2>
+            <h2 className="heading">{galleryTitle}</h2>
             <p className="para pt-5 xl:w-1/3 pb-10">
-                Love is at the heart of everything we do. It drives us to build meaningful relationships, support our clients, and create moments that matter.
+               {galleryDes}
             </p>
 
             {/* Gallery images */}

@@ -7,22 +7,24 @@ function CreateStory() {
     const [title, setTitle] = useState('');
     const [shortDescription, setShortDescription] = useState('');
     const [loading, setLoading] = useState(false);
+    const [music, setMusic] = useState("");
+    const [musicPreview, setMusicPreview] = useState(null);
 
 
     const handleUpload = () => {
         window.cloudinary.openUploadWidget(
             {
                 cloudName: 'leonschaefer',
-                uploadPreset: 'leaonBirthdayWebsite', 
+                uploadPreset: 'leaonBirthdayWebsite',
                 sources: ['local', 'camera', 'url'],
                 cropping: false,
                 multiple: true,
                 resourceType: 'image',
-                clientAllowedFormats: ['webp', 'jpg', 'png', 'heic'], 
+                clientAllowedFormats: ['webp', 'jpg', 'png', 'heic'],
                 transformation: [
                     {
-                        fetch_format: 'auto', 
-                        quality: 'auto', 
+                        fetch_format: 'auto',
+                        quality: 'auto',
                     },
                 ],
             },
@@ -33,33 +35,63 @@ function CreateStory() {
                 }
 
                 if (result.event === 'success') {
-                    console.log('Uploaded URL:', result.info.secure_url);
 
                     const webpUrl = result.info.secure_url.replace(/(\/v\d+\/)(.*?)(\.(jpg|jpeg|png|heic|gif|bmp|tiff|svg))/i, '$1$2.webp');
 
-                    console.log('WebP URL:', webpUrl); 
                     setImageUrls((prev) => [...prev, webpUrl]);
                 }
             }
         );
     };
 
+
+    // for music
+     const handleMusicUpload = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        setLoading(true);
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", "leaonBirthdayWebsite");
+
+        try {
+            const response = await axios.post(
+                "https://api.cloudinary.com/v1_1/leonschaefer/raw/upload",
+                formData
+            );
+            setMusic(response.data.secure_url); 
+            setMusicPreview(URL.createObjectURL(file)); 
+        } catch (error) {
+
+            alert("Failed to upload music. Please try again.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
     const handleDeleteImage = (index) => {
         setImageUrls((prev) => prev.filter((_, idx) => idx !== index));
     };
 
-    console.log(imageUrls)
+
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
 
+
+
         try {
             const bannerData = {
                 title,
                 des: shortDescription,
-                images: imageUrls, 
+                images: imageUrls,
+                musicUrl : music
             };
+
+
 
             // Post data to your API
             const response = await axios.post(
@@ -71,28 +103,29 @@ function CreateStory() {
                 console.log('Story created successfully');
                 setTitle('');
                 setShortDescription('');
-                setImageUrls([]); 
+                setImageUrls([]);
+                setMusic("")
             }
         } catch (error) {
             console.error('Error submitting story:', error);
             alert('Error: ' + error.message); // Alert on error
         } finally {
-            setLoading(false); 
+            setLoading(false);
         }
     };
 
 
     // handle text area 
-
-
     const handleInputChange = (e) => {
         setShortDescription(e.target.value);
 
         // Auto-expand the textarea height based on its scrollHeight
         const textarea = e.target;
-        textarea.style.height = 'auto'; 
-        textarea.style.height = `${textarea.scrollHeight}px`; 
+        textarea.style.height = 'auto';
+        textarea.style.height = `${textarea.scrollHeight}px`;
     };
+
+  
 
     return (
         <section className="mt-10">
@@ -144,6 +177,19 @@ function CreateStory() {
                 {/* Form */}
                 <form onSubmit={handleFormSubmit}>
                     <div className="space-y-5">
+
+                        <div>
+                            <label htmlFor="music" className="block d__des mb-2">
+                                Music (Upload Audio File)
+                            </label>
+                            <input
+                                type="file"
+                                id="music"
+                                accept="audio/*"
+                                onChange={handleMusicUpload}
+                                className="w-full px-4 py-2 border rounded-sm focus:outline-none"
+                            />
+                        </div>
                         {/* Title Field */}
                         <div>
                             <label htmlFor="title" className="block d__des mb-2">

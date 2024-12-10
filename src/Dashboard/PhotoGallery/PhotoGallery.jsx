@@ -6,10 +6,14 @@ import Swal from 'sweetalert2';  // Import SweetAlert2
 function PhotoGallery() {
   const [imagePreview, setImagePreview] = useState(null);
   const [title, setTitle] = useState('');
+  const [videoLink, setVideoLink] = useState('');
   const [imageFile, setImageFile] = useState(null);
   const [videoPreview, setVideoPreview] = useState(null);
   const [videoFile, setVideoFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [selectedValue, setSelectedValue] = useState(true);
+
+
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -23,7 +27,7 @@ function PhotoGallery() {
     }
   };
 
- 
+
 
   const handleVideoUpload = (e) => {
     const file = e.target.files[0];
@@ -35,6 +39,11 @@ function PhotoGallery() {
       reader.readAsDataURL(file);
       setVideoFile(file);
     }
+  };
+
+  const handleChange = (event) => {
+    setSelectedValue(event.target.value);
+    console.log("Selected Value:", event.target.value);
   };
 
   const handleFormSubmit = async (e) => {
@@ -81,7 +90,7 @@ function PhotoGallery() {
         const galleryData = {
           title,
           img: imageUrl,
-          url: videoUrl, 
+          url: videoUrl,
         };
         console.log(galleryData);
 
@@ -176,10 +185,44 @@ function PhotoGallery() {
           {/* Form */}
           <form onSubmit={handleFormSubmit}>
             <div className="space-y-5">
+
+              <div className='grid grid-cols-2 gap-10'>
+                <div>
+                  <label htmlFor="videoLink" className="block d__des mb-2">
+                    Video Link
+                  </label>
+                  <input
+                    type="text"
+                    id="videoLink"
+                    placeholder="Enter title"
+                    className="w-full px-4 py-2 border rounded-sm focus:outline-none"
+                    value={videoLink}
+                    onChange={(e) => setVideoLink(e.target.value)}
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor="zoomIn" className="block d__des mb-2">
+                    Want to ZoomIN
+                  </label>
+                  <select
+                    name="Want ZoomIN"
+                    id="zoomIn"
+                    className="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-3 pr-8 rounded leading-tight focus:outline-none focus:none"
+                    value={selectedValue.toString()} e
+                    onChange={handleChange} 
+                  >
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                  </select>
+                </div>
+              </div>
+
+
               {/* Title Field */}
               <div>
                 <label htmlFor="title" className="block d__des mb-2">
-                  Title
+                  Gallery Title
                 </label>
                 <input
                   type="text"

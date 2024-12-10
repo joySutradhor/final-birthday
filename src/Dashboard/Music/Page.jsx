@@ -97,7 +97,7 @@ function Music() {
       // Prepare data for your backend
       const musicData = {
         musicUrl: musicUrl,
-        title: musicFile.name, // Optional: Extract file name for title
+        title: musicFile.name, 
       };
 
       // Post to your backend API
