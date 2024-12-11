@@ -43,12 +43,11 @@ function PhotoGallery() {
 
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
-    console.log("Selected Value:", event.target.value);
   };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-
+  
     // SweetAlert2 confirmation dialog
     const result = await Swal.fire({
       title: 'Are you sure?',
@@ -58,10 +57,10 @@ function PhotoGallery() {
       confirmButtonText: 'Yes, Submit!',
       cancelButtonText: 'Cancel',
     });
-
+  
     if (result.isConfirmed) {
       setLoading(true);
-
+  
       try {
         // Upload image to Cloudinary
         const imageFormData = new FormData();
@@ -71,47 +70,65 @@ function PhotoGallery() {
           'https://api.cloudinary.com/v1_1/leonschaefer/image/upload',
           imageFormData
         );
-
-        const imageUrl = cloudinaryImageResponse.data.secure_url;
-        console.log(imageUrl)
-
-        // Upload video to Cloudinary
-        const videoFormData = new FormData();
-        videoFormData.append('file', videoFile);
-        videoFormData.append('upload_preset', 'leaonBirthdayWebsite');
-        const cloudinaryVideoResponse = await axios.post(
-          'https://api.cloudinary.com/v1_1/leonschaefer/video/upload',
-          videoFormData
-        );
-
-        const videoUrl = cloudinaryVideoResponse.data.secure_url;
-
+  
+        const resImageUrl = cloudinaryImageResponse.data.secure_url;
+        const imageUrl = resImageUrl.replace(/(\/v\d+\/)(.*?)(\.(jpg|jpeg|png|heic|gif|bmp|tiff|svg))/i, '$1$2.webp');
+        console.log(imageUrl);
+  
+        let videoUrl = null;
+  
+        // Upload video to Cloudinary if videoFile is provided
+        if (videoFile) {
+          const videoFormData = new FormData();
+          videoFormData.append('file', videoFile);
+          videoFormData.append('upload_preset', 'leaonBirthdayWebsite');
+          const cloudinaryVideoResponse = await axios.post(
+            'https://api.cloudinary.com/v1_1/leonschaefer/video/upload',
+            videoFormData
+          );
+  
+          videoUrl = cloudinaryVideoResponse.data.secure_url;
+          console.log(videoUrl);
+        }
+  
         // Prepare data for the backend
         const galleryData = {
           title,
           img: imageUrl,
-          url: videoUrl,
+          videoUrl : videoLink ,
+          zoom : selectedValue,
+
         };
+  
+        // Include video URL if it exists
+        if (videoUrl) {
+          galleryData.url = videoUrl;
+        }
+  
         console.log(galleryData);
-
-        const response = await axios.post('https://birthday-gift-web.vercel.app/api/v1/gallery/create', galleryData);
-
+  
+        // Post data to the backend
+        const response = await axios.post(
+          'https://birthday-gift-web.vercel.app/api/v1/gallery/create',
+          galleryData
+        );
+  
         if (response.status === 200) {
           console.log('Banner created successfully');
-
+  
           // Clear form after submission
           setTitle('');
           setImagePreview(null);
           setImageFile(null);
           setVideoPreview(null);
           setVideoFile(null);
-
+          setVideoLink("")
+  
           // Show success alert
           Swal.fire('Success', 'Gallery submitted successfully!', 'success');
         }
       } catch (error) {
         console.error('Error uploading media or posting data:', error);
-        alert(error.message);
         // Show error alert
         Swal.fire('Error', 'There was an issue uploading the media. Please try again.', 'error');
       } finally {
@@ -119,6 +136,7 @@ function PhotoGallery() {
       }
     }
   };
+  
 
   return (
     <section className="mt-10">
@@ -198,7 +216,7 @@ function PhotoGallery() {
                     className="w-full px-4 py-2 border rounded-sm focus:outline-none"
                     value={videoLink}
                     onChange={(e) => setVideoLink(e.target.value)}
-                    required
+                    
                   />
                 </div>
                 <div>
