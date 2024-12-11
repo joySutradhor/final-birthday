@@ -56,8 +56,6 @@ export default function Gallery() {
         return animations[randomIndex];
     };
 
-
-
     return (
         <section className="sectionSpace" id="gallery">
             <h2 className="heading">{galleryTitle}</h2>
@@ -153,13 +151,12 @@ export default function Gallery() {
                         className="rounded-lg p-4 relative max-w-3xl w-full flex justify-center items-center "
                         onClick={(e) => e.stopPropagation()}
                     >
-                        {currentMedia?.url ? (
+                        {currentMedia?.url || currentMedia?.videoUrl ? (
                             <video
-                                src={currentMedia?.url}
+                                src={currentMedia?.url || currentMedia?.videoUrl }
                                 autoPlay
                                 loop
                                 muted
-
                                 className="w-[80vw] lg:w-auto h-full object-contain"
                             />
                         ) : (
