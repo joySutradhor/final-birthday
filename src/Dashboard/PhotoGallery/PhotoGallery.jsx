@@ -11,7 +11,7 @@ function PhotoGallery() {
   const [videoPreview, setVideoPreview] = useState(null);
   const [videoFile, setVideoFile] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [selectedValue, setSelectedValue] = useState(true);
+  const [selectedValue, setSelectedValue] = useState("true");
 
 
 
@@ -123,6 +123,7 @@ function PhotoGallery() {
           setVideoPreview(null);
           setVideoFile(null);
           setVideoLink("")
+          setSelectedValue("")
   
           // Show success alert
           Swal.fire('Success', 'Photo Gallery submitted successfully!', 'success');

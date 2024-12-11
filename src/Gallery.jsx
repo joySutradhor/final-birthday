@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import Box from '@mui/material/Box';
-import { Fade, Zoom } from 'react-awesome-reveal'; // Import Zoom for zoom effect
+import { Fade, Zoom } from 'react-awesome-reveal';
 import axios from 'axios';
 
 export default function Gallery() {
@@ -12,6 +12,7 @@ export default function Gallery() {
     const [momentId, setMomentId] = useState(null);
     const [galleryTitle, setGalleryTitle] = useState("");
     const [galleryDes, setGalleryDes] = useState("");
+    const [isZoom, setIsZoom] = useState("");
 
 
     useEffect(() => {
@@ -19,9 +20,10 @@ export default function Gallery() {
             .get('https://birthday-gift-web.vercel.app/api/v1/title')
             .then((response) => {
                 const fetchedMoment = response.data.data[0];
-                setMomentId(fetchedMoment?._id); 
+                setMomentId(fetchedMoment?._id);
                 setGalleryTitle(fetchedMoment?.title || '')
                 setGalleryDes(fetchedMoment?.des || '')
+                // setIsZoom(fetchedMoment?.zoom || "")
 
             })
             .catch((error) => console.error('Error fetching moments:', error));
@@ -55,7 +57,7 @@ export default function Gallery() {
         return animations[randomIndex];
     };
 
-    console.log(images)
+    console.log(isZoom, "chek it", images)
 
     return (
         <section className="sectionSpace" id="gallery">
@@ -65,122 +67,92 @@ export default function Gallery() {
             </p>
 
             {/* Gallery images */}
+            {/* Gallery images */}
             <div>
                 <Box sx={{ width: '85vw', overflow: 'clip' }}>
                     <ImageList variant="masonry" cols={3} gap={8}>
-                        {images?.map((item, index) => (
+                        {images?.map((item) => (
                             <ImageListItem key={item.id} onClick={() => openMedia(item)}>
-                                <div className="image-container relative w-full h-auto group overflow-x-hidden overflow-y-hidden cursor-pointer">
+                                <div className="image-container relative w-full h-auto overflow-x-hidden overflow-y-hidden cursor-pointer group ">
                                     {/* Random Animation for Image */}
-                                    {getRandomAnimation() === 'zoom' ? (
-                                        <Zoom>
-                                            <img
-                                                srcSet={`${item?.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                                                src={`${item?.img}?w=248&fit=crop&auto=format`}
-                                                alt={item.title}
-                                                loading="lazy"
-                                                className="brightness-90"
-                                                style={{
-                                                    width: '100%',
-                                                    height: 'auto',
-                                                    objectFit: 'cover',
-                                                    transition: 'opacity 0.3s',
-                                                }}
-                                            />
-                                        </Zoom>
-                                    ) : getRandomAnimation() === 'fadeLeft' ? (
-                                        <Fade direction="left">
-                                            <img
-                                                srcSet={`${item?.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                                                src={`${item?.img}?w=248&fit=crop&auto=format`}
-                                                alt={item.title}
-                                                loading="lazy"
-                                                className="brightness-90"
-                                                style={{
-                                                    width: '100%',
-                                                    height: 'auto',
-                                                    objectFit: 'cover',
-                                                    transition: 'opacity 0.3s',
-                                                }}
-                                            />
-                                        </Fade>
-                                    ) : getRandomAnimation() === 'fadeRight' ? (
-                                        <Fade direction="right">
-                                            <img
-                                                srcSet={`${item?.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                                                src={`${item?.img}?w=248&fit=crop&auto=format`}
-                                                alt={item.title}
-                                                loading="lazy"
-                                                className="brightness-90"
-                                                style={{
-                                                    width: '100%',
-                                                    height: 'auto',
-                                                    objectFit: 'cover',
-                                                    transition: 'opacity 0.3s',
-                                                }}
-                                            />
-                                        </Fade>
-                                    ) : (
-                                        <Fade direction='left'>
-                                            <img
-                                                srcSet={`${item?.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                                                src={`${item?.img}?w=248&fit=crop&auto=format`}
-                                                alt={item.title}
-                                                loading="lazy"
-                                                className="brightness-90"
-                                                style={{
-                                                    width: '100%',
-                                                    height: 'auto',
-                                                    objectFit: 'cover',
-                                                    transition: 'opacity 0.3s',
-                                                }}
-                                            />
-                                        </Fade>
-                                    )}
+                                    {(() => {
+                                        const animation = getRandomAnimation();
+                                        const hoverScaleClass =
+                                            item?.zoom == "true"
+                                                ? "group-hover:scale-125 grayscale group-hover:grayscale-0 transition-transform ease-in-out duration-1000"
+                                                : "";
 
-                                    {/* Video */}
-                                    <video
-                                        src={item.url}
-                                        width="100%"
-                                        height="100%"
-                                        className='overflow-hidden'
-                                        autoPlay
-                                        loop
-                                        muted
-                                        style={{
-                                            position: 'absolute',
-                                            top: 0,
-                                            left: 0,
-                                            width: '100%',
-                                            height: '100%',
-                                            objectFit: 'cover',
-                                            opacity: 0,
-                                            transition: 'opacity 0.3s',
-                                        }}
-                                        loading="lazy"
-                                    />
+                                        if (animation === "zoom") {
+                                            return (
+                                                <Zoom>
+                                                    <img
+                                                        srcSet={`${item?.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                                        src={`${item?.img}?w=248&fit=crop&auto=format`}
+                                                        alt={item.title}
+                                                        loading="lazy"
+                                                        className={`w-full h-auto  object-cover ${hoverScaleClass}  `}
+                                                    />
+                                                </Zoom>
+                                            );
+                                        } else if (animation === "fadeLeft") {
+                                            return (
+                                                <Fade direction="left">
+                                                    <img
+                                                        srcSet={`${item?.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                                        src={`${item?.img}?w=248&fit=crop&auto=format`}
+                                                        alt={item.title}
+                                                        loading="lazy"
+                                                        className={`w-full h-auto object-cover ${hoverScaleClass} `}
+                                                    />
+                                                </Fade>
+                                            );
+                                        } else if (animation === "fadeRight") {
+                                            return (
+                                                <Fade direction="right">
+                                                    <img
+                                                        srcSet={`${item?.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                                        src={`${item?.img}?w=248&fit=crop&auto=format`}
+                                                        alt={item.title}
+                                                        loading="lazy"
+                                                        className={`w-full h-auto object-cover ${hoverScaleClass} `}
+                                                    />
+                                                </Fade>
+                                            );
+                                        } else {
+                                            return (
+                                                <Fade direction="left">
+                                                    <img
+                                                        srcSet={`${item?.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                                        src={`${item?.img}?w=248&fit=crop&auto=format`}
+                                                        alt={item.title}
+                                                        loading="lazy"
+                                                        className={`w-full h-auto object-cover ${hoverScaleClass} `}
+                                                    />
+                                                </Fade>
+                                            );
+                                        }
+                                    })()}
 
-                                    {/* Title Overlay on Hover */}
-                                    <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    {/* Title */}
+                                    <div className='absolute z-50 inset-0 flex justify-center items-center group-hover:bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out'>
                                         <h3 className="text-white text-xl font-bold font-custom">{item.title}</h3>
                                     </div>
-
-
                                 </div>
                             </ImageListItem>
                         ))}
                     </ImageList>
                 </Box>
-            </div>
+            </div>;
 
-            {openModal &&  (
+
+            {openModal && (
                 <div
                     className="fixed inset-0 bg-black  flex justify-center items-center z-50"
                     onClick={closeModal}
                 >
                     <div
                         className="rounded-lg p-4 relative max-w-3xl w-full flex justify-center items-center "
-                        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on the content
+                        onClick={(e) => e.stopPropagation()}
                     >
                         {currentMedia?.url ? (
                             <video

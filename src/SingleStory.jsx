@@ -105,7 +105,7 @@ const SingleStory = () => {
                                 src={`${item}?w=248&fit=crop&auto=format`}
                                 alt={item.title}
                                 loading="lazy"
-                                className='rounded-tl-2xl rounded-br-2xl hover:scale-105 duration-1000 transition-all'
+                                className='rounded-tl-2xl rounded-br-2xl hover:scale-125 duration-1000 transition-transform'
                                 style={{
                                   width: '100%',
                                   height: 'auto',
