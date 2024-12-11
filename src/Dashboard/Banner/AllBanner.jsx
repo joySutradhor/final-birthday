@@ -19,7 +19,7 @@ export default function AllBanner() {
             .catch((error) => console.error("Error fetching slides:", error));
     }, []);
 
-    console.log(images)
+
     // Cloudinary upload function
     const uploadToCloudinary = async (file) => {
         const cloudinaryUrl = "https://api.cloudinary.com/v1_1/leonschaefer/image/upload";

@@ -100,7 +100,6 @@ function CreateStory() {
             );
 
             if (response.status === 200) {
-                console.log('Story created successfully');
                 setTitle('');
                 setShortDescription('');
                 setImageUrls([]);

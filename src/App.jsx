@@ -35,7 +35,7 @@ function App() {
     }
   };
 
-  console.log(musicData)
+
 
   if (loading) {
     return (

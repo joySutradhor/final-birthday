@@ -31,7 +31,7 @@ function UserLogin() {
       email: userName,
       password: password,
     };
-    console.log(payload)
+
 
     Swal.fire({
       title: 'Do You Want to Login?',

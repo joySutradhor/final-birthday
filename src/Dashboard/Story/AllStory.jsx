@@ -99,7 +99,6 @@ function AllStory() {
 
   // Open update modal
   const openModal = (story) => {
-    console.log(story.musicUrl)
     setCurrentStory(story);
     setUpdatedTitle(story.title);
     setUpdatedDescription(story.des);
@@ -130,7 +129,6 @@ function AllStory() {
 
       // Extract the uploaded file's URL from the response
       const uploadedMusicUrl = response.data.secure_url;
-      console.log(uploadedMusicUrl , "new res cloud")
       setUpdatedMusic(uploadedMusicUrl); 
     } catch (error) {
       console.error("Error uploading music to Cloudinary:", error);
@@ -139,7 +137,7 @@ function AllStory() {
   };
 
 
-  console.log(updatedMusic , "music")
+
 
   // Update story
   const updateStory = async () => {

@@ -33,11 +33,9 @@ function CreateBanner() {
         }
 
         if (result.event === 'success') {
-          console.log('Uploaded URL:', result.info.secure_url);
 
           const webpUrl = result.info.secure_url.replace(/(\/v\d+\/)(.*?)(\.(jpg|jpeg|png|heic|gif|bmp|tiff|svg))/i, '$1$2.webp');
           setImageUrls(webpUrl)
-          console.log('WebP URL:', webpUrl);
 
         }
       }
@@ -68,7 +66,6 @@ function CreateBanner() {
       );
 
       if (response.status === 200) {
-        console.log('Banner created successfully');
         setTitle('');
         setShortDescription('');
         setImageUrls("");

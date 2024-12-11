@@ -21,7 +21,6 @@ const SingleStory = () => {
       try {
         const response = await fetch(`https://birthday-gift-web.vercel.app/api/v1/storey/${id}`);
         const data = await response.json();
-        console.log(data)
         setStory(data.data);
         setLoading(false);
       } catch (error) {
@@ -33,7 +32,6 @@ const SingleStory = () => {
     fetchStory();
   }, [id]);
 
-  console.log(story)
 
   //  Function to open the modal with the clicked image/video
   const openMedia = (media) => {
@@ -72,7 +70,7 @@ const SingleStory = () => {
     return <p>{error}</p>;
   }
 
-  console.log(currentMedia)
+
 
   return (
     <div className='bg-gradient-to-tr from-[#1F2A3E] via-[#3A424D] to-[#EFE1BE]  min-h-screen group ' onMouseDownCapture={handleHover}>

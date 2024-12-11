@@ -73,7 +73,6 @@ function PhotoGallery() {
   
         const resImageUrl = cloudinaryImageResponse.data.secure_url;
         const imageUrl = resImageUrl.replace(/(\/v\d+\/)(.*?)(\.(jpg|jpeg|png|heic|gif|bmp|tiff|svg))/i, '$1$2.webp');
-        console.log(imageUrl);
   
         let videoUrl = null;
   
@@ -88,7 +87,6 @@ function PhotoGallery() {
           );
   
           videoUrl = cloudinaryVideoResponse.data.secure_url;
-          console.log(videoUrl);
         }
   
         // Prepare data for the backend
@@ -105,7 +103,6 @@ function PhotoGallery() {
           galleryData.url = videoUrl;
         }
   
-        console.log(galleryData);
   
         // Post data to the backend
         const response = await axios.post(
@@ -114,8 +111,6 @@ function PhotoGallery() {
         );
   
         if (response.status === 200) {
-          console.log('Banner created successfully');
-  
           // Clear form after submission
           setTitle('');
           setImagePreview(null);

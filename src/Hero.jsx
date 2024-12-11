@@ -10,9 +10,6 @@ import './styles.css';
 
 import { FaQuoteLeft } from "react-icons/fa";
 
-
-
-
 // import required modules
 import { Autoplay, EffectCreative, Navigation, Pagination, Keyboard } from 'swiper/modules';
 import Header from './Header';
@@ -21,6 +18,7 @@ import Header from './Header';
 
 export default function Hero() {
     const [slides, setSlides] = useState([]);
+    const [loading, setLoading] = useState(true);
    
     // Fetch slide data
     useEffect(() => {
@@ -28,9 +26,15 @@ export default function Hero() {
             .then((response) => response.json())
             .then((data) => setSlides(data.data))
             .catch((error) => console.error('Error fetching slides:', error));
+            setLoading(false)
     }, []);
 
-
+    if (loading) {
+        return (
+          <div className="flex justify-center items-center h-[100vh] text-white font-bold text-xl">Hey man your images size need to compressed...</div>
+        );
+      }
+    
 
 
 

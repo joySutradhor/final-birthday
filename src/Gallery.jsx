@@ -12,7 +12,7 @@ export default function Gallery() {
     const [momentId, setMomentId] = useState(null);
     const [galleryTitle, setGalleryTitle] = useState("");
     const [galleryDes, setGalleryDes] = useState("");
-    const [isZoom, setIsZoom] = useState("");
+
 
 
     useEffect(() => {
@@ -23,7 +23,6 @@ export default function Gallery() {
                 setMomentId(fetchedMoment?._id);
                 setGalleryTitle(fetchedMoment?.title || '')
                 setGalleryDes(fetchedMoment?.des || '')
-                // setIsZoom(fetchedMoment?.zoom || "")
 
             })
             .catch((error) => console.error('Error fetching moments:', error));
@@ -57,7 +56,7 @@ export default function Gallery() {
         return animations[randomIndex];
     };
 
-    console.log(isZoom, "chek it", images)
+
 
     return (
         <section className="sectionSpace" id="gallery">

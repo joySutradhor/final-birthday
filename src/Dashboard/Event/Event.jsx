@@ -28,7 +28,6 @@ function Event() {
       );
       if (response.status === 200) {
         Swal.fire('Success!', 'Your data has been submitted.', 'success');
-        console.log(response);
         setLoading(false);
       }
     } catch (error) {

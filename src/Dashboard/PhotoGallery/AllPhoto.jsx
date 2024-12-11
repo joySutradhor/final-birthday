@@ -33,7 +33,6 @@ export default function AllPhoto() {
         try {
             const responseUls = await axios.post(cloudinaryUrl, formData);
             const response = responseUls.data.secure_url.replace(/(\/v\d+\/)(.*?)(\.(jpg|jpeg|png|heic|gif|bmp|tiff|svg))/i, '$1$2.webp');
-            console.log(response, "from need to res")
             return response;
         } catch (error) {
             throw error;
@@ -124,20 +123,15 @@ export default function AllPhoto() {
             let videoUrl = selectedImage.url;
 
             if (newImage && newImage !== selectedImage.img) {
-                console.log("Uploading new image...");
                 const file = document.getElementById("image").files[0];
                 imageUrl = await uploadToCloudinary(file, "image");
-                console.log("Image uploaded:", imageUrl);
             }
 
             if (newVideo && newVideo !== selectedImage.url) {
-                console.log("Uploading new video...");
                 const file = document.getElementById("video").files[0];
                 videoUrl = await uploadToCloudinary(file, "video");
-                console.log("Video uploaded:", videoUrl);
             }
 
-            console.log("Sending data to API:", { title: updatedTitle, img: imageUrl, url: videoUrl });
             const response = await axios.patch(
                 `https://birthday-gift-web.vercel.app/api/v1/gallery/${selectedImage.id}`,
                 {
@@ -149,7 +143,6 @@ export default function AllPhoto() {
                 }
             );
 
-            console.log("API Response:", response.data);
 
             if (response.status === 200) {
                 setImages((prevImages) =>
