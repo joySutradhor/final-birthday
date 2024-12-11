@@ -31,7 +31,7 @@ export default function Hero() {
 
     if (loading) {
         return (
-          <div className="flex justify-center items-center h-[100vh] text-white font-bold text-xl">Hey man your images size need to compressed...</div>
+          <div className="flex justify-center items-center h-[100vh] text-white text-lg">Hey man your images size need to compressed...</div>
         );
       }
     
