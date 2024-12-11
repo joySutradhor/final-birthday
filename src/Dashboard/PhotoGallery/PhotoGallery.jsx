@@ -125,7 +125,7 @@ function PhotoGallery() {
           setVideoLink("")
   
           // Show success alert
-          Swal.fire('Success', 'Gallery submitted successfully!', 'success');
+          Swal.fire('Success', 'Photo Gallery submitted successfully!', 'success');
         }
       } catch (error) {
         console.error('Error uploading media or posting data:', error);
@@ -227,7 +227,7 @@ function PhotoGallery() {
                     name="Want ZoomIN"
                     id="zoomIn"
                     className="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-3 pr-8 rounded leading-tight focus:outline-none focus:none"
-                    value={selectedValue.toString()} e
+                    value={selectedValue}
                     onChange={handleChange} 
                   >
                     <option value="true">Yes</option>

@@ -35,6 +35,8 @@ function App() {
     }
   };
 
+  console.log(musicData)
+
   if (loading) {
     return (
       <div className="flex justify-center items-center h-[100vh]">Loading...</div>
