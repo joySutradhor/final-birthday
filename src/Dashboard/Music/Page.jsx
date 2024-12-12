@@ -45,7 +45,7 @@ function Music() {
             `https://birthday-gift-web.vercel.app/api/v1/music/${id}`
           );
 
-          // Update state to remove deleted music
+         
           setMusicList((prevMusicList) =>
             prevMusicList.filter((music) => music._id !== id)
           );
@@ -65,7 +65,7 @@ function Music() {
     if (file) {
       setMusicFile(file);
       const url = URL.createObjectURL(file);
-      setMusicPreview(url); // Create a temporary preview URL
+      setMusicPreview(url); 
     }
   };
 
@@ -82,13 +82,13 @@ function Music() {
 
     const formData = new FormData();
     formData.append("file", musicFile);
-    formData.append("upload_preset", "leaonBirthdayWebsite"); // Replace with your Cloudinary preset
-    formData.append("resource_type", "raw"); // Ensures it's treated as a non-image resource
+    formData.append("upload_preset", "leaonBirthdayWebsite"); 
+    formData.append("resource_type", "raw"); 
 
     try {
       // Upload to Cloudinary
       const cloudinaryResponse = await axios.post(
-        "https://api.cloudinary.com/v1_1/leonschaefer/raw/upload", // Replace with your endpoint
+        "https://api.cloudinary.com/v1_1/leonschaefer/raw/upload", 
         formData
       );
 

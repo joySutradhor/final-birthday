@@ -21,6 +21,8 @@ import { FaMusic } from "react-icons/fa";
 import Moment from './Moment/Moment';
 import { FaRegSmileBeam } from "react-icons/fa";
 import Event from './Event/Event';
+import { GoDeviceCameraVideo } from "react-icons/go";
+
 
 
 
@@ -36,7 +38,7 @@ const NAVIGATION = [
   { segment: 'photo-gallery', title: 'Photo Gallery', icon: <AddToPhotosIcon /> },
   { segment: 'upload-music', title: 'Upload Music', icon: <FaMusic /> },
   { segment: 'upload-moment', title: 'Upload Happy Moment', icon: <FaRegSmileBeam /> },
-  { segment: 'upload-event', title: 'Upload Event', icon: <FaRegSmileBeam /> },
+  { segment: 'upload-event', title: 'Upload Event', icon: <GoDeviceCameraVideo /> },
 ];
 
 const demoTheme = extendTheme({

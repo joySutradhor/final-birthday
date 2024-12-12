@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import axios from 'axios';
-import Swal from 'sweetalert2';  // Import SweetAlert2
+import Swal from 'sweetalert2';  
 
 function PhotoGallery() {
   const [imagePreview, setImagePreview] = useState(null);

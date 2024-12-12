@@ -72,7 +72,7 @@ function CreateBanner() {
       }
     } catch (error) {
       console.error('Error submitting Banner:', error);
-      alert('Error: ' + error.message); // Alert on error
+      alert('Error: ' + error.message); 
     } finally {
       setLoading(false);
     }
@@ -80,12 +80,8 @@ function CreateBanner() {
 
 
   // handle text area 
-
-
   const handleInputChange = (e) => {
     setShortDescription(e.target.value);
-
-    // Auto-expand the textarea height based on its scrollHeight
     const textarea = e.target;
     textarea.style.height = 'auto';
     textarea.style.height = `${textarea.scrollHeight}px`;

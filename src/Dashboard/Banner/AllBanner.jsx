@@ -11,7 +11,7 @@ export default function AllBanner() {
     const [updatedDescription, setUpdatedDescription] = useState("");
     const [newImage, setNewImage] = useState(null);
 
-    // Fetch slide data
+    // Fetch banner data
     useEffect(() => {
         axios
             .get("https://birthday-gift-web.vercel.app/api/v1/slider")
@@ -119,10 +119,10 @@ export default function AllBanner() {
 
     const updateBanner = async () => {
         try {
-            let imageUrl = selectedImage.img; // Default to existing image URL
+            let imageUrl = selectedImage.img; 
             if (newImage && newImage !== selectedImage.img) {
                 const file = document.getElementById("image").files[0];
-                imageUrl = await uploadToCloudinary(file); // Upload to Cloudinary
+                imageUrl = await uploadToCloudinary(file); 
             }
 
             const response = await axios.patch(

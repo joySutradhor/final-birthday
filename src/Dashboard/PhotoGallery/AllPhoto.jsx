@@ -15,7 +15,7 @@ export default function AllPhoto() {
     const [selectedValue, setSelectedValue] = useState(true);
     const [fileName, setFileName] = useState("");
 
-    // Fetch slide data
+    // Fetch photo data
     useEffect(() => {
         axios
             .get("https://birthday-gift-web.vercel.app/api/v1/gallery")
@@ -84,8 +84,8 @@ export default function AllPhoto() {
         const file = e.target.files[0];
         if (file) {
             const fileUrl = URL.createObjectURL(file);
-            setNewImage(fileUrl); // Update the image URL
-            setFileName(file.name); // Update the file name
+            setNewImage(fileUrl); 
+            setFileName(file.name); 
         }
     };
 
