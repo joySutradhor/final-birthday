@@ -217,7 +217,7 @@ function PhotoGallery() {
                 </div>
                 <div>
                   <label htmlFor="zoomIn" className="block d__des mb-2">
-                    Want to ZoomIN
+                    Zoom In
                   </label>
                   <select
                     name="Want ZoomIN"

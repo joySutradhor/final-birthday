@@ -71,11 +71,11 @@ function Header() {
 
                     <Link smooth to="#gallery" onClick={handleLinkClick} className="menuItem">
                         <FaImages className="mr-2 inline" />
-                        Photo Gallery
+                        Fotos
                     </Link>
                     <Link smooth to="#videos" onClick={handleLinkClick} className="menuItem">
                         <FaFilm className="mr-2 inline" />
-                        Video Events
+                        Videos
                     </Link>
 
                     {

@@ -138,7 +138,7 @@ function Music() {
         >
           {musicPreview ? (
             <audio controls className="w-full">
-              <source src={musicPreview} type="audio/mpeg" />
+              <source src={musicPreview} type="audio/mpeg"  />
               Your browser does not support the audio element.
             </audio>
           ) : (
