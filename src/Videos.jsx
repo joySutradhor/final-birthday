@@ -9,7 +9,7 @@ function Videos() {
     
   useEffect(() => {
     axios
-      .get('https://birthday-gift-web.vercel.app/api/v1/event')
+      .get('https://leon-final-server-iwnx.vercel.app/api/v1/event')
       .then((response) => {
         const fetchedEvent = response.data.data[0];
         setVideoTitle(fetchedEvent?.title || '')
@@ -20,7 +20,7 @@ function Videos() {
 
     // Fetch slide data
     useEffect(() => {
-        fetch('https://birthday-gift-web.vercel.app/api/v1/video')
+        fetch('https://leon-final-server-iwnx.vercel.app/api/v1/video')
             .then((response) => response.json())
             .then((data) => setVideos(data.data))
             .catch((error) => console.error('Error fetching story:', error));

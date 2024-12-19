@@ -14,7 +14,7 @@ export default function AllBanner() {
     // Fetch banner data
     useEffect(() => {
         axios
-            .get("https://birthday-gift-web.vercel.app/api/v1/slider")
+            .get("https://leon-final-server-iwnx.vercel.app/api/v1/slider")
             .then((response) => setImages(response.data.data))
             .catch((error) => console.error("Error fetching slides:", error));
     }, []);
@@ -76,7 +76,7 @@ export default function AllBanner() {
 
     const deleteBanner = async (id) => {
         try {
-            await axios.delete(`https://birthday-gift-web.vercel.app/api/v1/slider/${id}`);
+            await axios.delete(`https://leon-final-server-iwnx.vercel.app/api/v1/slider/${id}`);
             setImages((prevImages) => prevImages.filter((img) => img.id !== id));
             Swal.fire("Deleted!", "Your banner has been deleted.", "success");
         } catch (error) {
@@ -126,7 +126,7 @@ export default function AllBanner() {
             }
 
             const response = await axios.patch(
-                `https://birthday-gift-web.vercel.app/api/v1/slider/${selectedImage.id}`,
+                `https://leon-final-server-iwnx.vercel.app/api/v1/slider/${selectedImage.id}`,
                 {
                     title: updatedTitle,
                     des: updatedDescription,

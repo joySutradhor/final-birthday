@@ -106,7 +106,7 @@ function PhotoGallery() {
   
         // Post data to the backend
         const response = await axios.post(
-          'https://birthday-gift-web.vercel.app/api/v1/gallery/create',
+          'https://leon-final-server-iwnx.vercel.app/api/v1/gallery/create',
           galleryData
         );
   

@@ -23,7 +23,7 @@ function Moment() {
     setLoading(true);
     try {
       const response = await axios.patch(
-        `https://birthday-gift-web.vercel.app/api/v1/title/${momentId}`,
+        `https://leon-final-server-iwnx.vercel.app/api/v1/title/${momentId}`,
         data
       );
       if (response.status === 200) {
@@ -38,7 +38,7 @@ function Moment() {
 
   useEffect(() => {
     axios
-      .get('https://birthday-gift-web.vercel.app/api/v1/title')
+      .get('https://leon-final-server-iwnx.vercel.app/api/v1/title')
       .then((response) => {
         const fetchedMoment = response.data.data[0];
         setMomentId(fetchedMoment?._id); // Save the ID

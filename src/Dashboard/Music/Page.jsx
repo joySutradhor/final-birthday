@@ -15,7 +15,7 @@ function Music() {
     const fetchMusic = async () => {
       try {
         const response = await axios.get(
-          "https://birthday-gift-web.vercel.app/api/v1/music"
+          "https://leon-final-server-iwnx.vercel.app/api/v1/music"
         );
         setMusicList(response?.data.data); // Assuming the API returns an array of music objects
       } catch (err) {
@@ -42,7 +42,7 @@ function Music() {
       if (result.isConfirmed) {
         try {
           await axios.delete(
-            `https://birthday-gift-web.vercel.app/api/v1/music/${id}`
+            `https://leon-final-server-iwnx.vercel.app/api/v1/music/${id}`
           );
 
          
@@ -102,7 +102,7 @@ function Music() {
 
       // Post to your backend API
       const response = await axios.post(
-        "https://birthday-gift-web.vercel.app/api/v1/music/create",
+        "https://leon-final-server-iwnx.vercel.app/api/v1/music/create",
         musicData
       );
 

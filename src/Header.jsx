@@ -14,7 +14,7 @@ function Header() {
 
       // Fetch slide data
       useEffect(() => {
-        fetch('https://birthday-gift-web.vercel.app/api/v1/storey')
+        fetch('https://leon-final-server-iwnx.vercel.app/api/v1/storey')
             .then((response) => response.json())
             .then((data) => setStory(data.data))
             .catch((error) => console.error('Error fetching slides:', error));

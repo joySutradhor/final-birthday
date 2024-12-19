@@ -23,7 +23,7 @@ function Event() {
     setLoading(true);
     try {
       const response = await axios.patch(
-        `https://birthday-gift-web.vercel.app/api/v1/event/${eventId}`,
+        `https://leon-final-server-iwnx.vercel.app/api/v1/event/${eventId}`,
         data
       );
       if (response.status === 200) {
@@ -38,7 +38,7 @@ function Event() {
 
   useEffect(() => {
     axios
-      .get('https://birthday-gift-web.vercel.app/api/v1/event')
+      .get('https://leon-final-server-iwnx.vercel.app/api/v1/event')
       .then((response) => {
         const fetchedEvent = response.data.data[0];
         setEventId(fetchedEvent?._id); // Save the ID

@@ -61,7 +61,7 @@ function CreateBanner() {
 
       // Post data to your API
       const response = await axios.post(
-        'https://birthday-gift-web.vercel.app/api/v1/slider/create',
+        'https://leon-final-server-iwnx.vercel.app/api/v1/slider/create',
         bannerData
       );
 

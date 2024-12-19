@@ -43,7 +43,7 @@ function UserLogin() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .post('https://birthday-gift-web.vercel.app/api/v1/auth/login', payload)
+          .post('https://leon-final-server-iwnx.vercel.app/api/v1/auth/login', payload)
           .then((res) => {
             localStorage.setItem('rootToken', JSON.stringify(res.data.access_token));
             Swal.fire({

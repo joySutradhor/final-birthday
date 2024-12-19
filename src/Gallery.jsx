@@ -15,7 +15,7 @@ export default function Gallery () {
 
   useEffect(() => {
     axios
-      .get('https://birthday-gift-web.vercel.app/api/v1/title')
+      .get('https://leon-final-server-iwnx.vercel.app/api/v1/title')
       .then(response => {
         const fetchedMoment = response.data.data[0]
         setMomentId(fetchedMoment?._id)
@@ -27,7 +27,7 @@ export default function Gallery () {
 
   // Fetch gallery data
   useEffect(() => {
-    fetch('https://birthday-gift-web.vercel.app/api/v1/gallery')
+    fetch('https://leon-final-server-iwnx.vercel.app/api/v1/gallery')
       .then(response => response.json())
       .then(data => setImages(data.data))
       .catch(error => console.error('Error fetching slides:', error))
